@@ -668,6 +668,7 @@ services:
          - 'traefik.http.routers.remark-secure.middlewares=authelia'
       ports:
          - 8095:8080
+         - 8096:443
       logging:
          driver: json-file
          options:
