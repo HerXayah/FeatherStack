@@ -636,47 +636,6 @@ services:
          - 8092:8000
       env_file:
          - /opt/plausible/plausible-conf.env
-   remark:
-      image: ghcr.io/umputun/remark42:master
-      container_name: remark
-      restart: unless-stopped
-      environment:
-         - TZ=Europe/Berlin
-         - REMARK_URL=https://remark.egirl.ing
-         - SECRET=${REMARK_SECRET}
-         - SITE=remak.egirl
-         - AUTH_GITHUB_CID=${AUTH_GITHUB_CID}
-         - AUTH_GITHUB_CSEC=${AUTH_GITHUB_CSEC}
-         - AUTH_GOOGLE_CID=${AUTH_GOOGLE_CID}
-         - AUTH_GOOGLE_CSEC=${AUTH_GOOGLE_CSEC}
-      labels:
-         - 'traefik.enable=true'
-         - 'traefik.http.routers.remark.entrypoints=http'
-         - 'traefik.http.routers.remark.rule=Host(`remark.egirldev.co.uk`) || Host(`remark.egirl.ing`)'
-         - 'traefik.http.middlewares.remark-https-redirect.redirectscheme.scheme=https'
-         - 'traefik.http.routers.remark.middlewares=remark-https-redirect'
-         - 'traefik.http.routers.remark-secure.entrypoints=https'
-         - 'traefik.http.routers.remark-secure.rule=Host(`remark.egirldev.co.uk`) || Host(`remark.egirl.ing`)'
-         - 'traefik.http.routers.remark-secure.tls=true'
-         - 'traefik.http.routers.remark-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.remark-secure.tls.domains[0].main=egirldev.co.uk'
-         - 'traefik.http.routers.remark-secure.tls.domains[0].sans=remark.egirldev.co.uk'
-         - 'traefik.http.routers.remark-secure.tls.domains[1].sans=remark.egirl.ing'
-         - 'traefik.http.routers.remark-secure.tls.domains[1].main=remark.egirl.ing'
-         - 'traefik.http.routers.remark-secure.service=remark'
-         - 'traefik.http.services.remark.loadbalancer.server.port=8080'
-         - 'traefik.http.routers.remark-secure.middlewares=authelia'
-      ports:
-         - 8095:8080
-         - 8096:443
-      logging:
-         driver: json-file
-         options:
-            max-size: '10m'
-            max-file: '5'
-      volumes:
-         - /opt/remark/:/srv/var
-         - /opt/remark/web:/web/
    uptime-kuma:
       image: louislam/uptime-kuma:latest
       container_name: uptime-kuma
