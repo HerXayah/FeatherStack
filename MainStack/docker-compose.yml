@@ -676,7 +676,7 @@ services:
             max-file: '5'
       volumes:
          - /opt/remark/:/srv/var
-         - /opt/remark/web:./web
+         - /opt/remark/web:/web/
    uptime-kuma:
       image: louislam/uptime-kuma:latest
       container_name: uptime-kuma
