@@ -645,7 +645,7 @@ services:
          - REMARK_URL=https://remark.egirl.ing
          - SECRET=${REMARK_SECRET}
          - SITE=remak.egirl
-         - AUTH_GITHUB_CID=${AUTH_GITHUB_CID}        
+         - AUTH_GITHUB_CID=${AUTH_GITHUB_CID}
          - AUTH_GITHUB_CSEC=${AUTH_GITHUB_CSEC}
          - AUTH_GOOGLE_CID=${AUTH_GOOGLE_CID}
          - AUTH_GOOGLE_CSEC=${AUTH_GOOGLE_CSEC}
@@ -668,7 +668,6 @@ services:
          - 'traefik.http.routers.remark-secure.middlewares=authelia'
       ports:
          - 8095:8080
-         - 8096:443
       logging:
          driver: json-file
          options:
