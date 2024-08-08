@@ -667,7 +667,6 @@ services:
          - 'traefik.http.services.remark.loadbalancer.server.port=8080'
          - 'traefik.http.routers.remark-secure.middlewares=authelia'
       ports:
-         # put it on container port 80 and 443 but on host 8095 and 8096
          - 8095:8080
          - 8096:443
       logging:
