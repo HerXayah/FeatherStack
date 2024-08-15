@@ -459,6 +459,7 @@ services:
       image: darthsim/imgproxy:latest
       container_name: imgproxy
       restart: unless-stopped
+      entrypoint: /bin/bash -c 'imgproxy'
       ports:
          - '79:79'
       environment:
@@ -483,7 +484,7 @@ services:
          - 'traefik.http.routers.imgproxy-secure.entrypoints=https'
          - 'traefik.http.routers.imgproxy-secure.rule=Host(`img.egirldev.co.uk`) || Host(`img.egirl.ing`)'
          - 'traefik.http.routers.imgproxy-secure.tls=true'
-         - 'traefik.http.routers.imgproxy-secure.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.imgproxy-secure.tls.certresolver1=cloudflare'
          - 'traefik.http.routers.imgproxy-secure.tls.domains[0].main=egirldev.co.uk'
          - 'traefik.http.routers.imgproxy-secure.tls.domains[0].sans=img.egirldev.co.uk'
          - 'traefik.http.routers.imgproxy-secure.tls.domains[1].sans=img.egirl.ing'
