@@ -459,11 +459,6 @@ services:
       image: darthsim/imgproxy:v3
       container_name: imgproxy
       restart: unless-stopped
-      healthcheck:
-         test: ['CMD', 'imgproxy', 'health']
-         timeout: '10s'
-         interval: '10s'
-         retries: 3
       ports:
          - '79:79'
       environment:
