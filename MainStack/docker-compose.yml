@@ -456,13 +456,18 @@ services:
          - /opt/CFBouncer/crowdsec-cloudflare-bouncer.yaml:/etc/crowdsec/bouncers/crowdsec-cloudflare-bouncer.yaml:ro
          - /var/log/crowdsec-cloudflare-bouncer:/var/log/
    imgproxy:
-      image: darthsim/imgproxy:latest
+      image: darthsim/imgproxy::v3
       container_name: imgproxy
       restart: unless-stopped
+      healthcheck:
+         test: ['CMD', 'imgproxy', 'health']
+         timeout: '10s'
+         interval: '10s'
+         retries: 3
       ports:
          - '79:79'
       environment:
-         - IMGPROXY_LOG_LEVEL=debug
+         - IMGPROXY_LOG_LEVEL=info
          - IMGPROXY_LOG_FORMAT=text
          - IMGPROXY_BIND=:79
          - IMGPROXY_KEY=${IMGPROXY_KEY}
