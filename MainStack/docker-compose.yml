@@ -462,7 +462,7 @@ services:
       ports:
          - '79:79'
       environment:
-         - IMGPROXY_LOG_LEVEL=info
+         - IMGPROXY_LOG_LEVEL=debug
          - IMGPROXY_LOG_FORMAT=text
          - IMGPROXY_BIND=:79
          - IMGPROXY_KEY=${IMGPROXY_KEY}
