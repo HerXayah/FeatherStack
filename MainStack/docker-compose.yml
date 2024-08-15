@@ -456,7 +456,7 @@ services:
          - /opt/CFBouncer/crowdsec-cloudflare-bouncer.yaml:/etc/crowdsec/bouncers/crowdsec-cloudflare-bouncer.yaml:ro
          - /var/log/crowdsec-cloudflare-bouncer:/var/log/
    imgproxy:
-      image: darthsim/imgproxy::v3
+      image: darthsim/imgproxy:v3
       container_name: imgproxy
       restart: unless-stopped
       healthcheck:
