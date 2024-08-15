@@ -459,8 +459,7 @@ services:
       image: darthsim/imgproxy:latest
       container_name: imgproxy
       restart: unless-stopped
-      entrypoint: entrypoint.sh
-      command: /bin/bash -c 'imgproxy'
+      entrypoint: sh entrypoint.sh
       ports:
          - '79:79'
       environment:
