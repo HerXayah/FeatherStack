@@ -1,0 +1,90 @@
+version: '3.8'
+
+volumes:
+   db-data:
+      driver: local
+      driver_opts:
+         type: none
+         o: bind
+         device: /opt/komodo/dbdata
+   db-config:
+      driver: local
+      driver_opts:
+         type: none
+         o: bind
+         device: /opt/komodo/dbconfig
+   komodo-repos:
+      driver: local
+      driver_opts:
+         type: none
+         o: bind
+         device: /opt/komodo/repos
+   komodo-stacks:
+      driver: local
+      driver_opts:
+         type: none
+         o: bind
+         device: /opt/komodo/stacks
+
+services:
+   portainer:
+      image: ghcr.io/mbecker20/komodo:latest
+      container_name: portainer
+      restart: unless-stopped
+      depends_on:
+         - komodo-mongo
+      ports:
+         - 9120:9120
+      extra_hosts: # allows for local periphery connection at "http://host.docker.internal:8120"
+         - host.docker.internal:host-gateway
+      labels:
+         - 'traefik.enable=true'
+         - 'traefik.http.routers.portainer.entrypoints=http'
+         - 'traefik.http.routers.portainer.rule=Host(`portainer.egirldev.co.uk`) || Host(`portainer.egirl.ing`)'
+         - 'traefik.http.middlewares.portainer-https-redirect.redirectscheme.scheme=https'
+         - 'traefik.http.routers.portainer.middlewares=portainer-https-redirect'
+         - 'traefik.http.routers.portainer-secure.entrypoints=https'
+         - 'traefik.http.routers.portainer-secure.rule=Host(`portainer.egirldev.co.uk`) || Host(`portainer.egirl.ing`)'
+         - 'traefik.http.routers.portainer-secure.tls=true'
+         - 'traefik.http.routers.portainer-secure.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.portainer-secure.tls.domains[0].main=egirldev.co.uk'
+         - 'traefik.http.routers.portainer-secure.tls.domains[0].sans=portainer.egirldev.co.uk'
+         - 'traefik.http.routers.portainer-secure.tls.domains[1].sans=portainer.egirl.ing'
+         - 'traefik.http.routers.portainer-secure.tls.domains[1].main=portainer.egirl.ing'
+         - 'traefik.http.routers.portainer-secure.service=portainer'
+         - 'traefik.http.services.portainer.loadbalancer.server.port=9120'
+      environment: # https://github.com/mbecker20/komodo/blob/main/config_example/core.config.example.toml
+         KOMODO_HOST: https://portainer.egirl.ing
+         KOMODO_TITLE: Egirltainer # Change the app title, displayed in the browser tab.
+         ## MONGO
+         KOMODO_MONGO_ADDRESS: komodo-mongo:27017
+         KOMODO_MONGO_USERNAME: ${KOMODO_MONGO_USERNAME}
+         KOMODO_MONGO_PASSWORD: ${KOMODO_MONGO_PASSWORD}
+         KOMODO_PASSKEY: ${KOMODO_PASSKEY}
+         KOMODO_WEBHOOK_SECRET: ${KOMODO_WEBHOOK_SECRET}
+         KOMODO_JWT_SECRET: ${KOMODO_JWT_SECRET}
+         KOMODO_LOCAL_AUTH: true
+   komodo-mongo:
+      image: mongo
+      command: --quiet # suppress mongo logs a bit
+      restart: unless-stopped
+      logging:
+         driver: local
+      ports:
+         - 27017:27017
+      volumes:
+         - db-data:/data/db
+         - db-config:/data/configdb
+      environment:
+         MONGO_INITDB_ROOT_USERNAME: ${KOMODO_MONGO_USERNAME} # change these
+         MONGO_INITDB_ROOT_PASSWORD: ${KOMODO_MONGO_PASSWORD}
+   komodo-periphery:
+      image: ghcr.io/mbecker20/periphery:latest # use ghcr.io/mbecker20/periphery:latest-aarch64 for arm support
+      logging:
+         driver: local
+      ports:
+         - 8120:8120
+      volumes:
+         - /var/run/docker.sock:/var/run/docker.sock
+         - komodo-repos:/etc/komodo/repos # manage repos in a docker volume, or change it to an accessible host directory.
+         - komodo-stacks:/etc/komodo/stacks # manage stacks in a docker volume, or change it to an accessible host directory.
