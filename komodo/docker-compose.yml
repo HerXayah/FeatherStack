@@ -67,6 +67,8 @@ services:
          KOMODO_GITHUB_OAUTH_ENABLED: true # also support google oauth
          KOMODO_GITHUB_OAUTH_ID: ${KOMODO_GITHUB_OAUTH_ID}
          KOMODO_GITHUB_OAUTH_SECRET: ${KOMODO_GITHUB_OAUTH_SECRET}
+         PUID: 1000
+         PGID: 1000
    komodo-mongo:
       image: mongo
       command: --quiet # suppress mongo logs a bit
@@ -87,6 +89,9 @@ services:
          driver: local
       ports:
          - 8120:8120
+      environment:
+         PUID: 1000
+         PGID: 1000
       volumes:
          - /var/run/docker.sock:/var/run/docker.sock
          - komodo-repos:/etc/komodo/repos # manage repos in a docker volume, or change it to an accessible host directory.
