@@ -64,6 +64,9 @@ services:
          KOMODO_WEBHOOK_SECRET: ${KOMODO_WEBHOOK_SECRET}
          KOMODO_JWT_SECRET: ${KOMODO_JWT_SECRET}
          KOMODO_LOCAL_AUTH: true
+         KOMODO_GITHUB_OAUTH_ENABLED: true # also support google oauth
+         KOMODO_GITHUB_OAUTH_ID: ${KOMODO_GITHUB_OAUTH_ID}
+         KOMODO_GITHUB_OAUTH_SECRET: ${KOMODO_GITHUB_OAUTH_SECRET}
    komodo-mongo:
       image: mongo
       command: --quiet # suppress mongo logs a bit
