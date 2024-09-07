@@ -57,6 +57,18 @@ volumes:
          type: none
          o: bind
          device: /opt/komodo/dbconfig
+   komodo-repos:
+      driver: local
+      driver_opts:
+         type: none
+         o: bind
+         device: /opt/komodo/repos
+   komodo-stacks:
+      driver: local
+      driver_opts:
+         type: none
+         o: bind
+         device: /opt/komodo/stacks
 
 services:
    crowdsec:
@@ -231,6 +243,22 @@ services:
       environment:
          MONGO_INITDB_ROOT_USERNAME: ${KOMODO_MONGO_USERNAME} # change these
          MONGO_INITDB_ROOT_PASSWORD: ${KOMODO_MONGO_PASSWORD}
+   komodo-periphery:
+      image: ghcr.io/mbecker20/periphery:latest # use ghcr.io/mbecker20/periphery:latest-aarch64 for arm support
+      logging:
+         driver: local
+      ports:
+         - 8120:8120
+      volumes:
+         - /var/run/docker.sock:/var/run/docker.sock
+         - komodo-repos:/etc/komodo/repos # manage repos in a docker volume, or change it to an accessible host directory.
+         - komodo-stacks:/etc/komodo/stacks # manage stacks in a docker volume, or change it to an accessible host directory.
+      # environment:
+      #   # If the disk size is overreporting, can use one of these to
+      #   # whitelist / blacklist the disks to filter them, whichever is easier.
+      #   PERIPHERY_INCLUDE_DISK_MOUNTS: /etc/komodo/repos
+      #   PERIPHERY_EXCLUDE_DISK_MOUNTS: /snap
+
    traefik:
       image: traefik:latest
       restart: unless-stopped
