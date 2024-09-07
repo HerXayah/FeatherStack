@@ -27,7 +27,7 @@ volumes:
          device: /opt/komodo/stacks
 
 services:
-   portainer:
+   komodo:
       image: ghcr.io/mbecker20/komodo:latest
       container_name: portainer
       restart: unless-stopped
