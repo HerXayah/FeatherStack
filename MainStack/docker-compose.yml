@@ -223,8 +223,6 @@ services:
       restart: unless-stopped
       logging:
          driver: local
-      networks:
-         - komodo-network
       ports:
          - 27017:27017
       volumes:
