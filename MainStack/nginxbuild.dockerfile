@@ -21,4 +21,4 @@ brotli_types application/atom+xml application/javascript application/json applic
           application/vnd.ms-fontobject application/x-font-opentype application/x-font-truetype\n \
           application/x-font-ttf application/x-javascript application/xhtml+xml application/xml\n \
           font/eot font/opentype font/otf font/truetype image/svg+xml image/vnd.microsoft.icon\n \
-          image/x-icon image/x-win-bitmap text/css text/javascript text/plain text/xml;' > /etc/nginx/conf.d/brotli.conf
+          image/x-icon image/x-win-bitmap text/css text/javascript text/plain text/xml;' > /etc/nginx/conf.d/brotli.confa
