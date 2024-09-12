@@ -102,9 +102,7 @@ services:
       depends_on:
          - crowdsec
    nginx:
-      build:
-         context: .
-         dockerfile: nginxbuild.dockerfile
+      image: fholzer/nginx-brotli:v1.26.2
       container_name: nginx-node
       restart: unless-stopped
       environment:
@@ -129,9 +127,7 @@ services:
          - /opt/html/egirl:/usr/share/nginx/html:ro
          - nginxmain_data:/var/log/nginx/:rw
    nginx-2:
-      build:
-         context: .
-         dockerfile: nginxbuild.dockerfile
+      image: fholzer/nginx-brotli:v1.26.2
       container_name: nginx-playnite
       restart: unless-stopped
       environment:
