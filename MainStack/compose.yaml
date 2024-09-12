@@ -494,8 +494,8 @@ services:
          - IMGPROXY_LOG_LEVEL=info
          - IMGPROXY_LOG_FORMAT=text
          - IMGPROXY_BIND=:79
-         # - IMGPROXY_KEY=${IMGPROXY_KEY}
-         # - IMGPROXY_SALT=${IMGPROXY_SALT}
+         - IMGPROXY_KEY=${IMGPROXY_KEY}
+         - IMGPROXY_SALT=${IMGPROXY_SALT}
          - IMGPROXY_ALLOWED_SOURCES=https://twitch.tv/,https://egirl.ing/,https://egirldev.co.uk/,https://media.discordapp.com/,https://media.discordapp.net/,https://cdn.discordapp.com/,local://
          - IMGPROXY_ALLOWED_EXTENSIONS="jpeg,jpg,png,webp,gif,svg,avif"
          - IMGPROXY_FREE_MEMORY_INTERVAL=10
