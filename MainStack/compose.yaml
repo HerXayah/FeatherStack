@@ -501,7 +501,7 @@ services:
          - IMGPROXY_FREE_MEMORY_INTERVAL=10
          - IMGPROXY_DOWNLOAD_BUFFER_SIZE=0
          - IMGPROXY_BUFFER_POOL_CALIBRATION_THRESHOLD=1024
-         - IMGPROXY_ENABLE_WEBP_DETECTION=true
+         - IMGPROXY_ENABLE_AVIF_DETECTION=true
          - IMGPROXY_LOCAL_FILESYSTEM_ROOT=/opt/imgproxy/
       labels:
          - 'traefik.enable=true'
