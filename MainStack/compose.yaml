@@ -102,7 +102,9 @@ services:
       depends_on:
          - crowdsec
    nginx:
-      image: nginx:latest
+      build:
+         context: .
+         dockerfile: nginxbuild.dockerfile
       container_name: nginx-node
       restart: unless-stopped
       environment:
@@ -127,7 +129,9 @@ services:
          - /opt/html/egirl:/usr/share/nginx/html:ro
          - nginxmain_data:/var/log/nginx/:rw
    nginx-2:
-      image: nginx:latest
+      build:
+         context: .
+         dockerfile: nginxbuild.dockerfile
       container_name: nginx-playnite
       restart: unless-stopped
       environment:
