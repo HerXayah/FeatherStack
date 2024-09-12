@@ -75,8 +75,6 @@ services:
       image: crowdsecurity/crowdsec:latest
       container_name: crowdsec
       restart: unless-stopped
-      ports:
-         - 8081:8081
       environment:
          GID: '${GID-1000}'
          COLLECTIONS: 'crowdsecurity/linux crowdsecurity/traefik crowdsecurity/http-cve crowdsecurity/whitelist-good-actors crowdsecurity/sshd crowdsecurity/nginx crowdsecurity/iptables'
@@ -364,8 +362,6 @@ services:
       image: wabayang/jelu:latest
       restart: unless-stopped
       container_name: jelu
-      ports:
-         - '1111:1111'
       entrypoint: java org.springframework.boot.loader.launch.JarLauncher --spring.config.additional-location=optional:file:/config/
       working_dir: /app
       volumes:
@@ -409,8 +405,6 @@ services:
       image: foxxmd/multi-scrobbler:develop
       container_name: multiscrobbler
       restart: unless-stopped
-      ports:
-         - '9087:9087'
       entrypoint: /init
       working_dir: /app
       volumes:
@@ -452,8 +446,6 @@ services:
       image: krateng/maloja:latest
       container_name: maloja
       restart: unless-stopped
-      ports:
-         - '42010:42010'
       entrypoint: maloja run
       working_dir: /usr/src/app
       volumes:
@@ -489,8 +481,6 @@ services:
       image: crowdsecurity/cloudflare-bouncer:latest
       container_name: crowdsec-cloudflare-bouncer
       restart: unless-stopped
-      ports:
-         - '2112:2112'
       volumes:
          - /var/run/docker.sock:/var/run/docker.sock:ro
          - /etc/localtime:/etc/localtime:ro
@@ -500,8 +490,6 @@ services:
       image: darthsim/imgproxy:v3.25
       container_name: imgproxy
       restart: unless-stopped
-      ports:
-         - '79:79'
       environment:
          - IMGPROXY_LOG_LEVEL=info
          - IMGPROXY_LOG_FORMAT=text
@@ -564,8 +552,6 @@ services:
          - 'traefik.http.routers.ghost-secure.tls.domains[1].main=egirl.ing'
          - 'traefik.http.routers.ghost-secure.service=ghost'
          - 'traefik.http.services.ghost.loadbalancer.server.port=2368'
-      ports:
-         - 8086:2368
       volumes:
          - /opt/ghost/:/var/lib/ghost/content
    database-ghost:
@@ -629,8 +615,6 @@ services:
          - 'traefik.http.routers.plausible-secure.tls.domains[1].main=plausible.egirl.ing'
          - 'traefik.http.routers.plausible-secure.service=plausible'
          - 'traefik.http.services.plausible.loadbalancer.server.port=8000'
-      ports:
-         - 8092:8000
       environment:
          - BASE_URL=${PLAUSIBLE_BASE_URL}
          - SECRET_KEY_BASE=${SECRET_KEY_BASE}
