@@ -497,7 +497,7 @@ services:
          - IMGPROXY_KEY=${IMGPROXY_KEY}
          - IMGPROXY_SALT=${IMGPROXY_SALT}
          - IMGPROXY_ALLOWED_SOURCES=https://twitch.tv/,https://egirl.ing/,https://egirldev.co.uk/,https://media.discordapp.com/,https://media.discordapp.net/,https://cdn.discordapp.com/,local://
-         - IMGPROXY_ALLOWED_EXTENSIONS="jpeg,jpg,png,webp,gif,svg"
+         - IMGPROXY_ALLOWED_EXTENSIONS="jpeg,jpg,png,webp,gif,svg,avif"
          - IMGPROXY_FREE_MEMORY_INTERVAL=10
          - IMGPROXY_DOWNLOAD_BUFFER_SIZE=0
          - IMGPROXY_BUFFER_POOL_CALIBRATION_THRESHOLD=1024
