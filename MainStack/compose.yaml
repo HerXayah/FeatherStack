@@ -219,8 +219,8 @@ services:
       env_file:
          - .env
       environment:
-         AUTHENTIK_REDIS__HOST: redis
-         AUTHENTIK_POSTGRESQL__HOST: postgresql
+         AUTHENTIK_REDIS__HOST: authentikredis
+         AUTHENTIK_POSTGRESQL__HOST: authentikpostgres
          AUTHENTIK_POSTGRESQL__USER: ${A_PG_USR}
          AUTHENTIK_POSTGRESQL__NAME: ${A_PG_DB}
          AUTHENTIK_POSTGRESQL__PASSWORD: ${A_PG_PWS}
@@ -238,8 +238,8 @@ services:
       env_file:
          - .env
       environment:
-         AUTHENTIK_REDIS__HOST: redis
-         AUTHENTIK_POSTGRESQL__HOST: postgresql
+         AUTHENTIK_REDIS__HOST: authentikredis
+         AUTHENTIK_POSTGRESQL__HOST: authentikpostgres
          AUTHENTIK_POSTGRESQL__USER: ${A_PG_USR}
          AUTHENTIK_POSTGRESQL__NAME: ${A_PG_DB}
          AUTHENTIK_POSTGRESQL__PASSWORD: ${A_PG_PWS}
