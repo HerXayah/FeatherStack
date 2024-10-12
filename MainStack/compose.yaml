@@ -155,6 +155,8 @@ services:
       image: authelia/authelia:latest
       container_name: authelia
       restart: unless-stopped
+      expose:
+         - 9091
       volumes:
          - /opt/authelia:/config
          - /etc/localtime:/etc/localtime:ro
