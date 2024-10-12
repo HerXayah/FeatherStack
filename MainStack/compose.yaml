@@ -192,6 +192,7 @@ services:
    server:
       image: ghcr.io/goauthentik/server:latest
       restart: unless-stopped
+      container_name: authentik-server
       command: server
       ports:
          - '${COMPOSE_PORT_HTTP:-9000}:9000'
@@ -232,6 +233,7 @@ services:
    worker:
       image: ghcr.io/goauthentik/server:latest
       restart: unless-stopped
+      container_name: authentik-worker
       command: worker
       env_file:
          - .env
