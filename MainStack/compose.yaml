@@ -168,6 +168,8 @@ services:
          interval: 30s
          retries: 5
          timeout: 5s
+      env_file:
+         - .env
       volumes:
          - authentik_database:/var/lib/postgresql/data
       environment:
@@ -210,6 +212,8 @@ services:
          - 'traefik.http.routers.egirl-secure.tls.domains[1].main=auth.egirl.ing'
          - 'traefik.http.routers.egirl-secure.service=authentik'
          - 'traefik.http.services.authentik.loadbalancer.server.port=42000'
+      env_file:
+         - .env
       environment:
          AUTHENTIK_REDIS__HOST: redis
          AUTHENTIK_POSTGRESQL__HOST: postgresql
@@ -226,6 +230,8 @@ services:
       image: ghcr.io/goauthentik/server:latest
       restart: unless-stopped
       command: worker
+      env_file:
+         - .env
       environment:
          AUTHENTIK_REDIS__HOST: redis
          AUTHENTIK_POSTGRESQL__HOST: postgresql
