@@ -406,8 +406,6 @@ services:
       container_name: multiscrobbler
       restart: unless-stopped
       entrypoint: /init
-      ports:
-         - '9087:9087'
       working_dir: /app
       volumes:
          - /opt/multiscrobbler/config:/config
@@ -436,6 +434,7 @@ services:
          - 'traefik.http.routers.multiscrobbler-secure.rule=Host(`multiscrobbler.egirldev.co.uk`) || Host(`multiscrobbler.egirl.ing`)'
          - 'traefik.http.routers.multiscrobbler-secure.tls=true'
          - 'traefik.http.routers.multiscrobbler-secure.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.multiscrobbler-secure.middlewares=authelia'
          - 'traefik.http.routers.multiscrobbler-secure.tls.domains[0].main=egirldev.co.uk'
          - 'traefik.http.routers.multiscrobbler-secure.tls.domains[0].sans=multiscrobbler.egirldev.co.uk'
          - 'traefik.http.routers.multiscrobbler-secure.tls.domains[1].sans=multiscrobbler.egirl.ing'
