@@ -291,7 +291,7 @@ services:
          - 'traefik.http.routers.traefik.middlewares=traefik-https-redirect'
          - 'traefik.http.routers.traefik-secure.entrypoints=https'
          - 'traefik.http.routers.traefik-secure.rule=Host(`traefik.egirldev.co.uk`) || Host(`traefik.egirl.ing`)'
-         - 'traefik.http.routers.traefik-secure.middlewares=traefik-https-redirect,authelia-normal' # Updated to include authelia-normal
+         - 'traefik.http.routers.traefik-secure.middlewares=authelia-normal' # Updated to include authelia-normal
          - 'traefik.http.routers.traefik-secure.tls=true'
          - 'traefik.http.routers.traefik-secure.tls.certresolver=cloudflare'
          - 'traefik.http.routers.traefik-secure.tls.domains[0].main=egirldev.co.uk'
@@ -438,7 +438,7 @@ services:
          - 'traefik.http.routers.multiscrobbler-secure.rule=Host(`multiscrobbler.egirldev.co.uk`) || Host(`multiscrobbler.egirl.ing`)'
          - 'traefik.http.routers.multiscrobbler-secure.tls=true'
          - 'traefik.http.routers.multiscrobbler-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.multiscrobbler-secure.middlewares=multiscrobbler-https-redirect,authelia-normal' # Updated to include authelia-normal
+         - 'traefik.http.routers.multiscrobbler-secure.middlewares=authelia-normal' # Updated to include authelia-normal
          - 'traefik.http.routers.multiscrobbler-secure.tls.domains[0].main=egirldev.co.uk'
          - 'traefik.http.routers.multiscrobbler-secure.tls.domains[0].sans=multiscrobbler.egirldev.co.uk'
          - 'traefik.http.routers.multiscrobbler-secure.tls.domains[1].sans=multiscrobbler.egirl.ing'
