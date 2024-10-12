@@ -406,6 +406,8 @@ services:
       container_name: multiscrobbler
       restart: unless-stopped
       entrypoint: /init
+      ports:
+         - '9087:9087'
       working_dir: /app
       volumes:
          - /opt/multiscrobbler/config:/config
