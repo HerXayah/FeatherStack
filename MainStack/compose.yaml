@@ -157,10 +157,6 @@ services:
       volumes:
          - /opt/html/Playnite-Export:/usr/share/nginx/html:ro
          - nginxgames_data:/var/log/nginx/
-   authentik:
-      image: authentik/authentik:latest
-      container_name: authentik
-      restart: unless-stopped
    authentikpostgres:
       image: postgres:16-alpine
       container_name: authentik-postgres
