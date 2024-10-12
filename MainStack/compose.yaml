@@ -162,7 +162,7 @@ services:
       container_name: authentik
       restart: unless-stopped
    authentikpostgres:
-      image: docker.io/library/postgres:16-alpine
+      image: postgres:16-alpine
       container_name: authentik-postgres
       restart: unless-stopped
       healthcheck:
@@ -179,7 +179,7 @@ services:
          POSTGRES_USER: ${A_PG_USR}
          POSTGRES_DB: ${A_PG_DB}
    authentikredis:
-      image: docker.io/library/redis:alpine
+      image: redis:alpine
       container_name: authentik-redis
       command: --save 60 1 --loglevel warning
       restart: unless-stopped
