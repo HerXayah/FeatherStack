@@ -193,6 +193,10 @@ services:
       image: ghcr.io/goauthentik/server:latest
       restart: unless-stopped
       command: server
+      ports:
+         # expose container 80 to 6000
+         - 80:6000
+         - 443:6001
       labels:
          - 'traefik.enable=true'
          - 'traefik.http.routers.egirl.rule=Host(`auth.egirldev.co.uk`) || Host(`auth.egirl.ing`)'
