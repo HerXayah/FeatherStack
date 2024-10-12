@@ -182,6 +182,10 @@ services:
          - 'traefik.http.middlewares.authelia-basic.forwardAuth.address=http://authelia:9091/api/verify?auth=basic'
          - 'traefik.http.middlewares.authelia-basic.forwardAuth.trustForwardHeader=true'
          - 'traefik.http.middlewares.authelia-basic.forwardAuth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email'
+         - 'traefik.http.middlewares.authelia-normal.forwardAuth.address=http://authelia:9091/api/authz/forward-auth'
+         - 'traefik.http.middlewares.authelia-normal.forwardAuth.trustForwardHeader=true'
+         - 'traefik.http.middlewares.authelia-normal.forwardAuth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email'
+
    #portainer:
    #   image: ghcr.io/mbecker20/komodo:latest
    #   container_name: portainer

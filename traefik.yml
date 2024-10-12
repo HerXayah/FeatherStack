@@ -1,14 +1,18 @@
 api:
    dashboard: true
    debug: false
+
 log:
    level: info
+
 accessLog:
    filePath: '/var/log/traefik/access.log'
    bufferingSize: 100
+
 global:
    checkNewVersion: true
    sendAnonymousUsage: false
+
 entrypoints:
    http:
       address: ':80'
@@ -34,35 +38,17 @@ entrypoints:
             entryPoint:
                to: https
                scheme: https
-https:
-   address: ':443'
-   http:
-      middlewares:
-         - crowdsec-bouncer@file
-         - my-traefik-real-ip@file
-         - authelia:
-              forwardAuth:
-                 address: 'http://authelia:9091/api/authz/forward-auth'
-                 # The following line configures the Authelia URL in the proxy.
-                 # address: 'http://authelia:9091/api/authz/forward-auth?authelia_url=https%3A%2F%2Fauth.egirl.ing%2F'
-                 trustForwardHeader: true
-                 authResponseHeaders:
-                    - 'Remote-User'
-                    - 'Remote-Groups'
-                    - 'Remote-Email'
-                    - 'Remote-Name'
-         - authelia-basic:
-              forwardAuth:
-                 address: 'http://authelia:9091/api/verify?auth=basic'
-                 trustForwardHeader: true
-                 authResponseHeaders:
-                    - 'Remote-User'
-                    - 'Remote-Groups'
-                    - 'Remote-Email'
-                    - 'Remote-Name'
+
+   https:
+      address: ':443'
+      http:
+         middlewares:
+            - crowdsec-bouncer@file
+            - my-traefik-real-ip@file
 
 serversTransport:
    insecureSkipVerify: true
+
 certificatesResolvers:
    cloudflare:
       acme:
@@ -74,6 +60,7 @@ certificatesResolvers:
             resolvers:
                - '1.1.1.1:53'
                - '1.0.0.1:53'
+
 providers:
    docker:
       endpoint: 'unix:///var/run/docker.sock'
