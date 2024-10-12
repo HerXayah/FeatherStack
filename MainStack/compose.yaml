@@ -158,7 +158,7 @@ services:
          - /opt/html/Playnite-Export:/usr/share/nginx/html:ro
          - nginxgames_data:/var/log/nginx/
    authentikpostgres:
-      image: postgres:16-alpine
+      image: docker.io/library/postgres:16-alpine
       container_name: authentik-postgres
       restart: unless-stopped
       healthcheck:
@@ -177,7 +177,7 @@ services:
          POSTGRES_USER: ${A_PG_USR}
          POSTGRES_DB: ${A_PG_DB}
    authentikredis:
-      image: redis:alpine
+      image: docker.io/library/redis:alpine
       container_name: authentik-redis
       command: --save 60 1 --loglevel warning
       restart: unless-stopped
@@ -190,7 +190,7 @@ services:
       volumes:
          - /opt/authentik/redis:/data
    server:
-      image: ghcr.io/goauthentik/server:latest
+      image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2024.8.3}
       restart: unless-stopped
       container_name: authentik-server
       command: server
@@ -231,7 +231,7 @@ services:
          - authentikpostgres
          - authentikredis
    worker:
-      image: ghcr.io/goauthentik/server:latest
+      image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2024.8.3}
       restart: unless-stopped
       container_name: authentik-worker
       command: worker
