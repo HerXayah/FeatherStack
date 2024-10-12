@@ -192,7 +192,7 @@ services:
       volumes:
          - /opt/authentik/redis:/data
    server:
-      image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2024.8.3}
+      image: ghcr.io/goauthentik/server:latest
       restart: unless-stopped
       command: server
       labels:
@@ -227,7 +227,7 @@ services:
          - authentikpostgres
          - authentikredis
    worker:
-      image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2024.8.3}
+      image: ghcr.io/goauthentik/server:latest
       restart: unless-stopped
       command: worker
       environment:
