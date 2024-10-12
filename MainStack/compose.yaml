@@ -194,9 +194,8 @@ services:
       restart: unless-stopped
       command: server
       ports:
-         # expose container 80 to 6000
-         - 80:6000
-         - 443:6001
+         - '${COMPOSE_PORT_HTTP:-9000}:9000'
+         - '${COMPOSE_PORT_HTTPS:-9443}:9443'
       labels:
          - 'traefik.enable=true'
          - 'traefik.http.routers.egirl.rule=Host(`auth.egirldev.co.uk`) || Host(`auth.egirl.ing`)'
