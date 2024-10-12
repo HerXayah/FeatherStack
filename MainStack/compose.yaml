@@ -177,7 +177,7 @@ services:
          - 'traefik.http.routers.authelia-secure.tls.domains[0].sans=auth.egirldev.co.uk'
          - 'traefik.http.routers.authelia-secure.tls.domains[1].sans=auth.egirl.ing'
          - 'traefik.http.routers.authelia-secure.tls.domains[1].main=auth.egirl.ing'
-         #- 'traefik.http.routers.authelia-secure.service=authelia'
+         - 'traefik.http.routers.authelia-secure.service=authelia'
          # - 'traefik.http.services.authelia.loadbalancer.server.port=9091'
          - 'traefik.http.middlewares.authelia.forwardAuth.address=http://authelia:9091/api/authz/forward-auth'
          - 'traefik.http.middlewares.authelia.forwardAuth.trustForwardHeader=true'
