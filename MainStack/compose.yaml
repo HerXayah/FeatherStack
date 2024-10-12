@@ -194,19 +194,16 @@ services:
       restart: unless-stopped
       container_name: authentik-server
       command: server
-      ports:
-         - '${COMPOSE_PORT_HTTP:-9000}:9000'
-         - '${COMPOSE_PORT_HTTPS:-9443}:9443'
       labels:
          - 'traefik.enable=true'
-         - 'traefik.http.routers.egirl.rule=Host(`auth.egirldev.co.uk`) || Host(`auth.egirl.ing`)'
+         - 'traefik.http.routers.egirl.rule=Host(`authentik.egirldev.co.uk`) || Host(`authentik.egirl.ing`)'
          - 'traefik.http.routers.egirl.entrypoints=http'
          - 'traefik.http.routers.egirl.tls.certresolver=cloudflare'
          - 'traefik.http.routers.egirl.tls.domains[0].main=egirldev.co.uk'
          - 'traefik.http.routers.egirl.tls.domains[0].sans=auth.egirldev.co.uk'
          - 'traefik.http.routers.egirl.tls.domains[1].sans=auth.egirl.ing'
          - 'traefik.http.routers.egirl.tls.domains[1].main=auth.egirl.ing'
-         - 'traefik.http.routers.egirl-secure.rule=Host(`auth.egirldev.co.uk`) || Host(`auth.egirl.ing`)'
+         - 'traefik.http.routers.egirl-secure.rule=Host(`authentik.egirldev.co.uk`) || Host(`authentik.egirl.ing`)'
          - 'traefik.http.routers.egirl-secure.entrypoints=https'
          - 'traefik.http.routers.egirl-secure.tls=true'
          - 'traefik.http.routers.egirl-secure.tls.certresolver=cloudflare'
@@ -215,7 +212,7 @@ services:
          - 'traefik.http.routers.egirl-secure.tls.domains[1].sans=auth.egirl.ing'
          - 'traefik.http.routers.egirl-secure.tls.domains[1].main=auth.egirl.ing'
          - 'traefik.http.routers.egirl-secure.service=authentik'
-         - 'traefik.http.services.authentik.loadbalancer.server.port=42000'
+         - 'traefik.http.services.authentik.loadbalancer.server.port=9000'
       env_file:
          - .env
       environment:
