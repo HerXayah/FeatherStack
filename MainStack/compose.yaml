@@ -155,8 +155,6 @@ services:
       image: authelia/authelia:latest
       container_name: authelia
       restart: unless-stopped
-      expose:
-         - 9091
       volumes:
          - /opt/authelia:/config
          - /etc/localtime:/etc/localtime:ro
@@ -178,7 +176,7 @@ services:
          - 'traefik.http.routers.authelia-secure.tls.domains[1].main=auth.egirl.ing'
          - 'traefik.http.routers.authelia-secure.service=authelia'
          - 'traefik.http.services.authelia.loadbalancer.server.port=9091'
-         - 'traefik.http.middlewares.authelia.forwardAuth.address=http://authelia:9091/api/authz/forward-auth?authelia_url=https%3A%2F%2Fauth.egirl.ing%2F'
+         - 'traefik.http.middlewares.authelia.forwardAuth.address=http://authelia:9091/api/authz/forward-auth'
          - 'traefik.http.middlewares.authelia.forwardAuth.trustForwardHeader=true'
          - 'traefik.http.middlewares.authelia.forwardAuth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Email,Remote-Name'
 
