@@ -462,6 +462,7 @@ services:
          - S6_VERBOSITY=1
          - S6_STAGE2_HOOK=/docker-mods
          - VIRTUAL_ENV=/lsiopy
+         - MALOJA_TIMEZONE=Europe/Berlin
       labels:
          - 'traefik.enable=true'
          - 'traefik.http.routers.maloja.entrypoints=http'
