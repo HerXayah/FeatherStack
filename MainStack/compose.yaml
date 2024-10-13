@@ -192,6 +192,8 @@ services:
    server:
       image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2024.8.3}
       restart: unless-stopped
+      expose:
+         - 9000
       container_name: authentik-server
       command: server
       labels:
