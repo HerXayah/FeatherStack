@@ -261,7 +261,7 @@ services:
          - /var/run/docker.sock:/var/run/docker.sock:ro
          - /etc/localtime:/etc/localtime:ro
          - /opt/traefik/traefik.yml:/traefik.yml:ro
-         #- /opt/traefik/dynamic_conf.yml:/dynamic_conf.yml:ro
+         - /opt/traefik/dynamic_conf.yml:/dynamic_conf.yml:ro
          - /opt/traefik/acme.json:/acme.json
          - /opt/traefik/config.yml:/config.yml:ro
          - traefik_data:/var/log/traefik/
