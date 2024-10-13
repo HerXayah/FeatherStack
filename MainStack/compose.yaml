@@ -151,7 +151,7 @@ services:
          - 'traefik.http.routers.nginx-2-secure.tls.domains[0].main=egirldev.co.uk'
          - 'traefik.http.routers.nginx-2-secure.tls.domains[0].sans=games.egirldev.co.uk'
          - 'traefik.http.routers.nginx-2-secure.tls.domains[1].sans=games.egirl.ing'
-         - 'traefik.http.routers.nginx-2-secure.tls.domains[1].main=games.egirl.ing'
+         - 'traefik.http.routers.nginx-2-secure.tls.domains[1].main=egirl.ing'
          - 'traefik.http.routers.nginx-2-secure.service=nginx-playnite'
          - 'traefik.http.services.nginx-playnite.loadbalancer.server.port=80'
       volumes:
@@ -285,7 +285,7 @@ services:
          - 'traefik.http.routers.traefik-secure.tls.domains[0].main=egirldev.co.uk'
          - 'traefik.http.routers.traefik-secure.tls.domains[0].sans=traefik.egirldev.co.uk'
          - 'traefik.http.routers.traefik-secure.tls.domains[1].sans=traefik.egirl.ing'
-         - 'traefik.http.routers.traefik-secure.tls.domains[1].main=traefik.egirl.ing'
+         - 'traefik.http.routers.traefik-secure.tls.domains[1].main=egirl.ing'
          - 'traefik.http.routers.traefik-secure.service=api@internal'
    cf-companion:
       container_name: cf-companion
@@ -388,7 +388,7 @@ services:
          - 'traefik.http.routers.jelu-secure.tls.domains[0].main=egirldev.co.uk'
          - 'traefik.http.routers.jelu-secure.tls.domains[0].sans=jelu.egirldev.co.uk'
          - 'traefik.http.routers.jelu-secure.tls.domains[1].sans=jelu.egirl.ing'
-         - 'traefik.http.routers.jelu-secure.tls.domains[1].main=jelu.egirl.ing'
+         - 'traefik.http.routers.jelu-secure.tls.domains[1].main=egirl.ing'
          - 'traefik.http.routers.jelu-secure.service=jelu'
          - 'traefik.http.services.jelu.loadbalancer.server.port=1111'
          - 'org.opencontainers.image.ref.name=ubuntu'
@@ -430,7 +430,7 @@ services:
          - 'traefik.http.routers.multiscrobbler-secure.tls.domains[0].main=egirldev.co.uk'
          - 'traefik.http.routers.multiscrobbler-secure.tls.domains[0].sans=multiscrobbler.egirldev.co.uk'
          - 'traefik.http.routers.multiscrobbler-secure.tls.domains[1].sans=multiscrobbler.egirl.ing'
-         - 'traefik.http.routers.multiscrobbler-secure.tls.domains[1].main=multiscrobbler.egirl.ing'
+         - 'traefik.http.routers.multiscrobbler-secure.tls.domains[1].main=egirl.ing'
          - 'traefik.http.routers.multiscrobbler-secure.service=multiscrobbler'
          - 'traefik.http.services.multiscrobbler.loadbalancer.server.port=9087'
 
@@ -467,7 +467,7 @@ services:
          - 'traefik.http.routers.maloja-secure.tls.domains[0].main=egirldev.co.uk'
          - 'traefik.http.routers.maloja-secure.tls.domains[0].sans=scrobble.egirldev.co.uk'
          - 'traefik.http.routers.maloja-secure.tls.domains[1].sans=scrobble.egirl.ing'
-         - 'traefik.http.routers.maloja-secure.tls.domains[1].main=scrobble.egirl.ing'
+         - 'traefik.http.routers.maloja-secure.tls.domains[1].main=egirl.ing'
          - 'traefik.http.routers.maloja-secure.service=maloja'
          - 'traefik.http.services.maloja.loadbalancer.server.port=42010'
    crowdsec-cloudflare-bouncer:
@@ -509,7 +509,7 @@ services:
          - 'traefik.http.routers.imgproxy-secure.tls.domains[0].main=egirldev.co.uk'
          - 'traefik.http.routers.imgproxy-secure.tls.domains[0].sans=img.egirldev.co.uk'
          - 'traefik.http.routers.imgproxy-secure.tls.domains[1].sans=img.egirl.ing'
-         - 'traefik.http.routers.imgproxy-secure.tls.domains[1].main=img.egirl.ing'
+         - 'traefik.http.routers.imgproxy-secure.tls.domains[1].main=egirl.ing'
          - 'traefik.http.routers.imgproxy-secure.service=imgproxy'
          - 'traefik.http.services.imgproxy.loadbalancer.server.port=79'
       volumes:
