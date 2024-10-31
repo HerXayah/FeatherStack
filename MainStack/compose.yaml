@@ -563,24 +563,24 @@ services:
    mail:
       image: bytemark/smtp
       restart: always
-   uploader:
-      image: ghcr.io/lennoxlotl/uploader:5121355-amd64
-      restart: always
-      labels:
-         - 'traefik.enable=true'
-         - 'traefik.http.routers.uploader.rule=Host(`upload.egirldev.co.uk`) || Host(`upload.egirl.ing`)'
-         - 'traefik.http.routers.uploader.entrypoints=http'
-         - 'traefik.http.routers.uploader.middlewares=uploader-https-redirect'
-         - 'traefik.http.middlewares.uploader-https-redirect.redirectscheme.scheme=https'
-         - 'traefik.http.routers.uploader-secure.rule=Host(`upload.egirldev.co.uk`) || Host(`upload.egirl.ing`)'
-         - 'traefik.http.routers.uploader-secure.entrypoints=https'
-         - 'traefik.http.routers.uploader-secure.tls=true'
-         - 'traefik.http.routers.uploader-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.uploader-secure.tls.domains[0].main=egirldev.co.uk'
-         - 'traefik.http.routers.uploader-secure.tls.domains[0].sans=upload.egirldev.co.uk'
-         - 'traefik.http.routers.uploader-secure.tls.domains[1].sans=upload.egirl.ing'
-         - 'traefik.http.routers.uploader-secure.tls.domains[1].main=egirl.ing'
-         - 'traefik.http.routers.uploader-secure.service=uploader'
-         - 'traefik.http.services.uploader.loadbalancer.server.port=8000'
-      volumes:
-         - /opt/uploader/Rocket.toml:/api/Rocket.toml
+   # uploader:
+   #    image: ghcr.io/lennoxlotl/uploader:5121355-amd64
+   #    restart: always
+   #    labels:
+   #       - 'traefik.enable=true'
+   #       - 'traefik.http.routers.uploader.rule=Host(`upload.egirldev.co.uk`) || Host(`upload.egirl.ing`)'
+   #       - 'traefik.http.routers.uploader.entrypoints=http'
+   #       - 'traefik.http.routers.uploader.middlewares=uploader-https-redirect'
+   #       - 'traefik.http.middlewares.uploader-https-redirect.redirectscheme.scheme=https'
+   #       - 'traefik.http.routers.uploader-secure.rule=Host(`upload.egirldev.co.uk`) || Host(`upload.egirl.ing`)'
+   #       - 'traefik.http.routers.uploader-secure.entrypoints=https'
+   #       - 'traefik.http.routers.uploader-secure.tls=true'
+   #       - 'traefik.http.routers.uploader-secure.tls.certresolver=cloudflare'
+   #       - 'traefik.http.routers.uploader-secure.tls.domains[0].main=egirldev.co.uk'
+   #       - 'traefik.http.routers.uploader-secure.tls.domains[0].sans=upload.egirldev.co.uk'
+   #       - 'traefik.http.routers.uploader-secure.tls.domains[1].sans=upload.egirl.ing'
+   #       - 'traefik.http.routers.uploader-secure.tls.domains[1].main=egirl.ing'
+   #       - 'traefik.http.routers.uploader-secure.service=uploader'
+   #       - 'traefik.http.services.uploader.loadbalancer.server.port=8000'
+   #    volumes:
+   #       - /opt/uploader/Rocket.toml:/api/Rocket.toml
