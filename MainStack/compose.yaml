@@ -437,7 +437,7 @@ services:
          - 'traefik.http.services.multiscrobbler.loadbalancer.server.port=9087'
 
    maloja:
-      image: krateng/maloja:latest
+      image: krateng/maloja:3.2.2
       container_name: maloja
       restart: unless-stopped
       entrypoint: maloja run
