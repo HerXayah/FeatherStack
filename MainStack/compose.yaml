@@ -592,8 +592,7 @@ services:
          #- MFA_TOTP_ENABLED=true
          #- MFA_TOTP_ISSUER=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
          - WEBSITE_TITLE=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
-         - WEBSITE_SHOW_VERSION=false
-         - CHUNKS_ENABLED=true
+         #- WEBSITE_SHOW_VERSION=false
          - DATASOURCE_TYPE=s3
          - DATASOURCE_S3_SECRET_ACCESS_KEY=${DATASOURCE_S3_SECRET_ACCESS_KEY}
          - DATASOURCE_S3_ACCESS_KEY_ID=${DATASOURCE_S3_ACCESS_KEY_ID}
