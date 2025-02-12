@@ -568,8 +568,8 @@ services:
       image: postgres:15
       restart: unless-stopped
       environment:
-         - POSTGRES_USER=miella
-         - POSTGRES_PASSWORD=postgres
+         - POSTGRES_USER=${POSTGRES_USER}
+         - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
          - POSTGRES_DATABASE=zipline_db
       volumes:
          - /opt/postgresZipline/:/var/lib/postgresql/data
@@ -584,7 +584,7 @@ services:
       container_name: uploader
       restart: unless-stopped
       environment:
-         - CORE_SECRET="ouhidsughiui43ogiu43ogiyu543ogyioygfoygudsfoy8gds69868Q#@&*@#^@#^&(@#^(%&uy8oRGYOfgoyudoygu))"
+         - CORE_SECRET=${CORE_SECRET}
          - CORE_DATABASE_URL=postgres://miella:postgres@postgres/zipline_db
          - FEATURES_INVITES=false
          - FEATURES_USER_REGISTRATION=false
@@ -594,15 +594,15 @@ services:
          - WEBSITE_TITLE=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
          - WEBSITE_SHOW_VERSION=false
          - CHUNKS_ENABLED=true
-         #- DATASOURCE_TYPE=s3
-         #- DATASOURCE_S3_SECRET_ACCESS_KEY=
-         #- DATASOURCE_S3_ACCESS_KEY_ID=
-         #- DATASOURCE_S3_ENDPOINT=
-         #- DATASOURCE_S3_PORT=9000
-         #- DATASOURCE_S3_BUCKET=
-         #- DATASOURCE_S3_FORCE_S3_PATH=false
-         #- DATASOURCE_S3_REGION=
-         #- DATASOURCE_S3_USE_SSL=true
+         - DATASOURCE_TYPE=s3
+         - DATASOURCE_S3_SECRET_ACCESS_KEY=${DATASOURCE_S3_SECRET_ACCESS_KEY}
+         - DATASOURCE_S3_ACCESS_KEY_ID=${DATASOURCE_S3_ACCESS_KEY_ID}
+         - DATASOURCE_S3_ENDPOINT=${DATASOURCE_S3_ENDPOINT}
+         - DATASOURCE_S3_PORT=9000
+         - DATASOURCE_S3_BUCKET=${DATASOURCE_S3_BUCKET}
+         - DATASOURCE_S3_FORCE_S3_PATH=false
+         #- DATASOURCE_S3_REGION=${DATASOURCE_S3_REGION}
+         - DATASOURCE_S3_USE_SSL=true
       labels:
          - 'traefik.enable=true'
          - 'traefik.http.routers.uploader.rule=Host(`upload.egirldev.co.uk`) || Host(`upload.egirl.ing`)'
