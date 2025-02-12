@@ -586,9 +586,9 @@ services:
       environment:
          - CORE_SECRET=${CORE_SECRET}
          - CORE_DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/zipline_db
-         #- FEATURES_INVITES=false
-         #- FEATURES_USER_REGISTRATION=false
-         #- FEATURES_ROBOTS_TXT=true
+         - FEATURES_INVITES=false
+         - FEATURES_USER_REGISTRATION=false
+         - FEATURES_ROBOTS_TXT=true
          - MFA_TOTP_ENABLED=true
          - MFA_TOTP_ISSUER=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
          - WEBSITE_TITLE=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
@@ -599,7 +599,7 @@ services:
          - DATASOURCE_S3_ACCESS_KEY_ID=${DATASOURCE_S3_ACCESS_KEY_ID}
          - DATASOURCE_S3_ENDPOINT=${DATASOURCE_S3_ENDPOINT}
          - DATASOURCE_S3_BUCKET=${DATASOURCE_S3_BUCKET}
-         - DATASOURCE_S3_FORCE_S3_PATH=false
+         #- DATASOURCE_S3_FORCE_S3_PATH=false
          - DATASOURCE_S3_USE_SSL=true
       labels:
          - 'traefik.enable=true'
