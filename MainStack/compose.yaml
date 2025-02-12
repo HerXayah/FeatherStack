@@ -591,7 +591,7 @@ services:
          - FEATURES_ROBOTS_TXT=true
          #- MFA_TOTP_ENABLED=true
          #- MFA_TOTP_ISSUER=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
-         - WEBSITE_TITLE=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
+         #- WEBSITE_TITLE=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
          #- WEBSITE_SHOW_VERSION=false
          - DATASOURCE_TYPE=s3
          - DATASOURCE_S3_SECRET_ACCESS_KEY=${DATASOURCE_S3_SECRET_ACCESS_KEY}
@@ -599,7 +599,7 @@ services:
          - DATASOURCE_S3_ENDPOINT=${DATASOURCE_S3_ENDPOINT}
          - DATASOURCE_S3_BUCKET=${DATASOURCE_S3_BUCKET}
          #- DATASOURCE_S3_FORCE_S3_PATH=false
-         - DATASOURCE_S3_USE_SSL=true
+         #- DATASOURCE_S3_USE_SSL=true
       labels:
          - 'traefik.enable=true'
          - 'traefik.http.routers.uploader.rule=Host(`upload.egirldev.co.uk`) || Host(`upload.egirl.ing`)'
