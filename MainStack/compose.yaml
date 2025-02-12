@@ -589,8 +589,8 @@ services:
          - FEATURES_INVITES=false
          - FEATURES_USER_REGISTRATION=false
          - FEATURES_ROBOTS_TXT=true
-         - MFA_TOTP_ENABLED=true
-         - MFA_TOTP_ISSUER=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
+         #- MFA_TOTP_ENABLED=true
+         #- MFA_TOTP_ISSUER=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
          - WEBSITE_TITLE=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
          - WEBSITE_SHOW_VERSION=false
          - CHUNKS_ENABLED=true
