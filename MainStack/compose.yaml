@@ -586,6 +586,18 @@ services:
       environment:
          - CORE_SECRET="ouhidsughiui43ogiu43ogiyu543ogyioygfoygudsfoy8gds69868Q#@&*@#^@#^&(@#^(%&uy8oRGYOfgoyudoygu))"
          - CORE_DATABASE_URL=postgres://miella:postgres@postgres/zipline_db
+         - FEATURES_INVITES=false
+         - FEATURES_USER_REGISTRATION=false
+         - FEATURES_ROBOTS_TXT=true
+         #- DATASOURCE_TYPE=s3
+         #- DATASOURCE_S3_SECRET_ACCESS_KEY=
+         #- DATASOURCE_S3_ACCESS_KEY_ID=
+         #- DATASOURCE_S3_ENDPOINT=
+         #- DATASOURCE_S3_PORT=9000
+         #- DATASOURCE_S3_BUCKET=
+         #- DATASOURCE_S3_FORCE_S3_PATH=false
+         #- DATASOURCE_S3_REGION=
+         #- DATASOURCE_S3_USE_SSL=true
       labels:
          - 'traefik.enable=true'
          - 'traefik.http.routers.uploader.rule=Host(`upload.egirldev.co.uk`) || Host(`upload.egirl.ing`)'
