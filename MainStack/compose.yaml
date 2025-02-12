@@ -586,12 +586,12 @@ services:
       environment:
          - CORE_SECRET=${CORE_SECRET}
          - CORE_DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/zipline_db
-         - FEATURES_INVITES=false
-         - FEATURES_USER_REGISTRATION=false
-         - FEATURES_ROBOTS_TXT=true
+         #- FEATURES_INVITES=false
+         #- FEATURES_USER_REGISTRATION=false
+         #- FEATURES_ROBOTS_TXT=true
          - MFA_TOTP_ENABLED=true
          - MFA_TOTP_ISSUER=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
-         #- WEBSITE_TITLE=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
+         - WEBSITE_TITLE=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
          - WEBSITE_SHOW_VERSION=false
          - CHUNKS_ENABLED=true
          - DATASOURCE_TYPE=s3
