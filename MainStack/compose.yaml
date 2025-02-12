@@ -572,7 +572,7 @@ services:
          - POSTGRES_PASSWORD=postgres
          - POSTGRES_DATABASE=zipline_db
       volumes:
-         - pg_data:/var/lib/postgresql/data
+         - /opt/postgresZipline/:/var/lib/postgresql/data
       healthcheck:
          test: ['CMD-SHELL', 'pg_isready -U postgres']
          interval: 10s
@@ -603,6 +603,8 @@ services:
          - 'traefik.http.routers.uploader-secure.service=uploader'
          - 'traefik.http.services.uploader.loadbalancer.server.port=3000'
       volumes:
+         - /opt/zipline/uploads:/zipline/uploads
+         - /opt/zipline/public:/zipline/public
 
    # uploader:
    #    image: ghcr.io/lennoxlotl/uploader:5121355-amd64
