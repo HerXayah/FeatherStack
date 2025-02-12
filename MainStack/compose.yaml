@@ -563,6 +563,47 @@ services:
    mail:
       image: bytemark/smtp
       restart: always
+
+   postgres:
+      image: postgres:15
+      restart: unless-stopped
+      environment:
+         - POSTGRES_USER=miella
+         - POSTGRES_PASSWORD=postgres
+         - POSTGRES_DATABASE=zipline_db
+      volumes:
+         - pg_data:/var/lib/postgresql/data
+      healthcheck:
+         test: ['CMD-SHELL', 'pg_isready -U postgres']
+         interval: 10s
+         timeout: 5s
+         retries: 5
+
+   uploader:
+      image: ghcr.io/diced/zipline
+      container_name: uploader
+      restart: unless-stopped
+      environment:
+         - CORE_SECRET="ouhidsughiui43ogiu43ogiyu543ogyioygfoygudsfoy8gds69868Q#@&*@#^@#^&(@#^(%&uy8oRGYOfgoyudoygu))"
+         - CORE_DATABASE_URL=postgres://miella:postgres@postgres/zipline_db
+      labels:
+         - 'traefik.enable=true'
+         - 'traefik.http.routers.uploader.rule=Host(`upload.egirldev.co.uk`) || Host(`upload.egirl.ing`)'
+         - 'traefik.http.routers.uploader.entrypoints=http'
+         - 'traefik.http.routers.uploader.middlewares=uploader-https-redirect'
+         - 'traefik.http.middlewares.uploader-https-redirect.redirectscheme.scheme=https'
+         - 'traefik.http.routers.uploader-secure.rule=Host(`upload.egirldev.co.uk`) || Host(`upload.egirl.ing`)'
+         - 'traefik.http.routers.uploader-secure.entrypoints=https'
+         - 'traefik.http.routers.uploader-secure.tls=true'
+         - 'traefik.http.routers.uploader-secure.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.uploader-secure.tls.domains[0].main=egirldev.co.uk'
+         - 'traefik.http.routers.uploader-secure.tls.domains[0].sans=upload.egirldev.co.uk'
+         - 'traefik.http.routers.uploader-secure.tls.domains[1].sans=upload.egirl.ing'
+         - 'traefik.http.routers.uploader-secure.tls.domains[1].main=egirl.ing'
+         - 'traefik.http.routers.uploader-secure.service=uploader'
+         - 'traefik.http.services.uploader.loadbalancer.server.port=3000'
+      volumes:
+
    # uploader:
    #    image: ghcr.io/lennoxlotl/uploader:5121355-amd64
    #    restart: always
