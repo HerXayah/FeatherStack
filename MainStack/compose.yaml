@@ -585,7 +585,7 @@ services:
       restart: unless-stopped
       environment:
          - CORE_SECRET=${CORE_SECRET}
-         - CORE_DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/zipline_db
+         - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/zipline_db
          - FEATURES_INVITES=false
          - FEATURES_USER_REGISTRATION=false
          - FEATURES_ROBOTS_TXT=true
