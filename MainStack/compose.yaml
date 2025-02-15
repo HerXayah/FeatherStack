@@ -566,7 +566,7 @@ services:
 
    postgres:
       container_name: postgres-zipline
-      image: postgres:15-alpine
+      image: postgres:15
       restart: unless-stopped
       environment:
          - POSTGRES_USER=${POSTGRES_USER}
