@@ -599,7 +599,7 @@ services:
          - DATASOURCE_S3_ACCESS_KEY_ID=${DATASOURCE_S3_ACCESS_KEY_ID}
          - DATASOURCE_S3_ENDPOINT=${DATASOURCE_S3_ENDPOINT}
          - DATASOURCE_S3_BUCKET=${DATASOURCE_S3_BUCKET}
-         - DATASOURCE_S3_REGION=auto
+         - DATASOURCE_S3_REGION=EEUR
       labels:
          - 'traefik.enable=true'
          - 'traefik.http.routers.uploader.rule=Host(`upload.egirldev.co.uk`) || Host(`upload.egirl.ing`)'
