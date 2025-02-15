@@ -565,17 +565,16 @@ services:
       restart: always
 
    postgres:
-      container_name: postgres-zipline
-      image: postgres:16-alpine
+      image: postgres:15
       restart: unless-stopped
       environment:
          - POSTGRES_USER=${POSTGRES_USER}
          - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-         - POSTGRES_DATABASE=zipline_v4
+         - POSTGRES_DATABASE=zipline_db
       volumes:
          - /opt/postgresZipline/:/var/lib/postgresql/data
       healthcheck:
-         test: ['CMD-SHELL', 'pg_isready -U miella']
+         test: ['CMD-SHELL', 'pg_isready -U postgres']
          interval: 10s
          timeout: 5s
          retries: 5
@@ -586,7 +585,7 @@ services:
       restart: unless-stopped
       environment:
          - CORE_SECRET=${CORE_SECRET}
-         - CORE_DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/zipline_v4
+         - CORE_DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/zipline_db
          - FEATURES_INVITES=false
          - FEATURES_USER_REGISTRATION=false
          - FEATURES_ROBOTS_TXT=true
@@ -600,6 +599,8 @@ services:
          - DATASOURCE_S3_ENDPOINT=${DATASOURCE_S3_ENDPOINT}
          - DATASOURCE_S3_BUCKET=${DATASOURCE_S3_BUCKET}
          - DATASOURCE_S3_REGION=EEUR
+         - DATASOURCE_S3_FORCE_S3_PATH=false
+         - DATASOURCE_S3_USE_SSL=true
       labels:
          - 'traefik.enable=true'
          - 'traefik.http.routers.uploader.rule=Host(`upload.egirldev.co.uk`) || Host(`upload.egirl.ing`)'
