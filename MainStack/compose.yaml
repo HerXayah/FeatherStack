@@ -565,6 +565,7 @@ services:
       restart: always
 
    postgres:
+      container_name: postgres-zipline
       image: postgres:16-alpine
       restart: unless-stopped
       environment:
@@ -579,7 +580,7 @@ services:
          timeout: 5s
          retries: 5
 
-   uploader:
+   uploader:dsadsa
       image: ghcr.io/diced/zipline:v4
       container_name: uploader
       restart: unless-stopped
