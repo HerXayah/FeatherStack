@@ -396,7 +396,7 @@ services:
          - 'org.opencontainers.image.ref.name=ubuntu'
          - 'org.opencontainers.image.version=22.04'
    multiscrobbler:
-      image: foxxmd/multi-scrobbler:develop
+      image: foxxmd/multi-scrobbler:edge
       container_name: multiscrobbler
       restart: unless-stopped
       entrypoint: /init
@@ -580,7 +580,7 @@ services:
          retries: 5
 
    uploader:
-      image: ghcr.io/diced/zipline:3.7.13
+      image: ghcr.io/diced/zipline:v3
       container_name: uploader
       restart: unless-stopped
       environment:
