@@ -2,3 +2,5 @@
 .env
 /MainStack/.env
 Kubernetes Test
+.qodo
+.vscode

@@ -620,25 +620,24 @@ services:
       volumes:
          - /opt/zipline/uploads:/zipline/uploads
          - /opt/zipline/public:/zipline/public
-
-   # uploader:
-   #    image: ghcr.io/lennoxlotl/uploader:5121355-amd64
-   #    restart: always
-   #    labels:
-   #       - 'traefik.enable=true'
-   #       - 'traefik.http.routers.uploader.rule=Host(`upload.egirldev.co.uk`) || Host(`upload.egirl.ing`)'
-   #       - 'traefik.http.routers.uploader.entrypoints=http'
-   #       - 'traefik.http.routers.uploader.middlewares=uploader-https-redirect'
-   #       - 'traefik.http.middlewares.uploader-https-redirect.redirectscheme.scheme=https'
-   #       - 'traefik.http.routers.uploader-secure.rule=Host(`upload.egirldev.co.uk`) || Host(`upload.egirl.ing`)'
-   #       - 'traefik.http.routers.uploader-secure.entrypoints=https'
-   #       - 'traefik.http.routers.uploader-secure.tls=true'
-   #       - 'traefik.http.routers.uploader-secure.tls.certresolver=cloudflare'
-   #       - 'traefik.http.routers.uploader-secure.tls.domains[0].main=egirldev.co.uk'
-   #       - 'traefik.http.routers.uploader-secure.tls.domains[0].sans=upload.egirldev.co.uk'
-   #       - 'traefik.http.routers.uploader-secure.tls.domains[1].sans=upload.egirl.ing'
-   #       - 'traefik.http.routers.uploader-secure.tls.domains[1].main=egirl.ing'
-   #       - 'traefik.http.routers.uploader-secure.service=uploader'
-   #       - 'traefik.http.services.uploader.loadbalancer.server.port=8000'
-   #    volumes:
-   #       - /opt/uploader/Rocket.toml:/api/Rocket.toml
+   otterwiki:
+      image: redimp/otterwiki:2-slim
+      restart: unless-stopped
+      volumes:
+         - /opt/otterwiki/data:/app-data
+      labels:
+         - 'traefik.enable=true'
+         - 'traefik.http.routers.otterwiki.rule=Host(`hrt.egirldev.co.uk`) || Host(`hrt.egirl.ing`)'
+         - 'traefik.http.routers.otterwiki.entrypoints=http'
+         - 'traefik.http.routers.otterwiki.middlewares=otterwiki-https-redirect'
+         - 'traefik.http.middlewares.otterwiki-https-redirect.redirectscheme.scheme=https'
+         - 'traefik.http.routers.otterwiki-secure.rule=Host(`hrt.egirldev.co.uk`) || Host(`hrt.egirl.ing`)'
+         - 'traefik.http.routers.otterwiki-secure.entrypoints=https'
+         - 'traefik.http.routers.otterwiki-secure.tls=true'
+         - 'traefik.http.routers.otterwiki-secure.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.otterwiki-secure.tls.domains[0].main=egirldev.co.uk'
+         - 'traefik.http.routers.otterwiki-secure.tls.domains[0].sans=hrt.egirldev.co.uk'
+         - 'traefik.http.routers.otterwiki-secure.tls.domains[1].sans=hrt.egirl.ing'
+         - 'traefik.http.routers.otterwiki-secure.tls.domains[1].main=egirl.ing'
+         - 'traefik.http.routers.otterwiki-secure.service=otterwiki'
+         - 'traefik.http.services.otterwiki.loadbalancer.server.port=8080'
