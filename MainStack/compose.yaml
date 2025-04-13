@@ -622,6 +622,7 @@ services:
          - /opt/zipline/public:/zipline/public
    otterwiki:
       image: redimp/otterwiki:2-slim
+      container_name: otterwiki
       restart: unless-stopped
       volumes:
          - /opt/otterwiki/data:/app-data
