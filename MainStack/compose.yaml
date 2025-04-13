@@ -626,6 +626,7 @@ services:
       restart: unless-stopped
       volumes:
          - /opt/otterwiki/data:/app-data
+         - /opt/otterwiki/media:/app-data/repository/home/
       labels:
          - 'traefik.enable=true'
          - 'traefik.http.routers.otterwiki.rule=Host(`hrt.egirldev.co.uk`) || Host(`hrt.egirl.ing`)'
