@@ -203,7 +203,7 @@ services:
          - 'traefik.http.routers.egirl.tls.certresolver=cloudflare'
          - 'traefik.http.routers.egirl.tls.domains[0].main=egirldev.co.uk'
          - 'traefik.http.routers.egirl.tls.domains[0].sans=authentik.egirldev.co.uk'
-         - 'traefik.http.routers.egirl.tls.domains[1].sans=authentikegirl.ing'
+         - 'traefik.http.routers.egirl.tls.domains[1].sans=authentik.egirl.ing'
          - 'traefik.http.routers.egirl.tls.domains[1].main=egirl.ing'
          - 'traefik.http.routers.egirl-secure.rule=Host(`authentik.egirldev.co.uk`) || Host(`authentik.egirl.ing`)'
          - 'traefik.http.routers.egirl-secure.entrypoints=https'
