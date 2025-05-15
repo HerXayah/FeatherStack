@@ -115,18 +115,16 @@ services:
          - NGINX_PORT=80
       labels:
          - 'traefik.enable=true'
-         - 'traefik.http.routers.nginx.rule=Host(`egirldev.co.uk`) || Host(`egirl.ing`)'
+         - 'traefik.http.routers.nginx.rule=Host(`egirl.ing`)'
          - 'traefik.http.routers.nginx.entrypoints=http'
          - 'traefik.http.routers.nginx.middlewares=nginx-https-redirect'
          - 'traefik.http.middlewares.nginx-https-redirect.redirectscheme.scheme=https'
-         - 'traefik.http.routers.nginx-secure.rule=Host(`egirldev.co.uk`) || Host(`egirl.ing`)'
+         - 'traefik.http.routers.nginx-secure.rule=Host(`egirl.ing`)'
          - 'traefik.http.routers.nginx-secure.entrypoints=https'
          - 'traefik.http.routers.nginx-secure.tls=true'
          - 'traefik.http.routers.nginx-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.nginx-secure.tls.domains[0].main=egirldev.co.uk'
-         - 'traefik.http.routers.nginx-secure.tls.domains[0].sans=*.egirldev.co.uk'
-         - 'traefik.http.routers.nginx-secure.tls.domains[1].sans=egirl.ing'
-         - 'traefik.http.routers.nginx-secure.tls.domains[1].main=egirl.ing'
+         - 'traefik.http.routers.nginx-secure.tls.domains[0].sans=egirl.ing'
+         - 'traefik.http.routers.nginx-secure.tls.domains[0].main=egirl.ing'
          - 'traefik.http.routers.nginx-secure.service=nginx-node'
          - 'traefik.http.services.nginx-node.loadbalancer.server.port=80'
       volumes:
@@ -140,18 +138,16 @@ services:
          - NGINX_PORT=80
       labels:
          - 'traefik.enable=true'
-         - 'traefik.http.routers.nginx-2.rule=Host(`games.egirldev.co.uk`) || Host(`games.egirl.ing`)'
+         - 'traefik.http.routers.nginx-2.rule=Host(`games.egirl.ing`)'
          - 'traefik.http.routers.nginx-2.entrypoints=http'
          - 'traefik.http.routers.nginx-2.middlewares=nginx-https-redirect'
          - 'traefik.http.middlewares.nginx-https-redirect.redirectscheme.scheme=https'
-         - 'traefik.http.routers.nginx-2-secure.rule=Host(`games.egirldev.co.uk`) || Host(`games.egirl.ing`)'
+         - 'traefik.http.routers.nginx-2-secure.rule=Host(`games.egirl.ing`)'
          - 'traefik.http.routers.nginx-2-secure.entrypoints=https'
          - 'traefik.http.routers.nginx-2-secure.tls=true'
          - 'traefik.http.routers.nginx-2-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.nginx-2-secure.tls.domains[0].main=egirldev.co.uk'
-         - 'traefik.http.routers.nginx-2-secure.tls.domains[0].sans=games.egirldev.co.uk'
-         - 'traefik.http.routers.nginx-2-secure.tls.domains[1].sans=games.egirl.ing'
-         - 'traefik.http.routers.nginx-2-secure.tls.domains[1].main=egirl.ing'
+         - 'traefik.http.routers.nginx-2-secure.tls.domains[0].sans=games.egirl.ing'
+         - 'traefik.http.routers.nginx-2-secure.tls.domains[0].main=egirl.ing'
          - 'traefik.http.routers.nginx-2-secure.service=nginx-playnite'
          - 'traefik.http.services.nginx-playnite.loadbalancer.server.port=80'
       volumes:
@@ -198,21 +194,17 @@ services:
       command: server
       labels:
          - 'traefik.enable=true'
-         - 'traefik.http.routers.egirl.rule=Host(`authentik.egirldev.co.uk`) || Host(`authentik.egirl.ing`)'
+         - 'traefik.http.routers.egirl.rule=Host(`authentik.egirl.ing`)'
          - 'traefik.http.routers.egirl.entrypoints=http'
          - 'traefik.http.routers.egirl.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.egirl.tls.domains[0].main=egirldev.co.uk'
-         - 'traefik.http.routers.egirl.tls.domains[0].sans=authentik.egirldev.co.uk'
-         - 'traefik.http.routers.egirl.tls.domains[1].sans=authentik.egirl.ing'
-         - 'traefik.http.routers.egirl.tls.domains[1].main=egirl.ing'
-         - 'traefik.http.routers.egirl-secure.rule=Host(`authentik.egirldev.co.uk`) || Host(`authentik.egirl.ing`)'
+         - 'traefik.http.routers.egirl.tls.domains[0].sans=authentik.egirl.ing'
+         - 'traefik.http.routers.egirl.tls.domains[0].main=egirl.ing'
+         - 'traefik.http.routers.egirl-secure.rule=Host(`authentik.egirl.ing`)'
          - 'traefik.http.routers.egirl-secure.entrypoints=https'
          - 'traefik.http.routers.egirl-secure.tls=true'
          - 'traefik.http.routers.egirl-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.egirl-secure.tls.domains[0].main=egirldev.co.uk'
-         - 'traefik.http.routers.egirl-secure.tls.domains[0].sans=authentik.egirldev.co.uk'
-         - 'traefik.http.routers.egirl-secure.tls.domains[1].sans=authentik.egirl.ing'
-         - 'traefik.http.routers.egirl-secure.tls.domains[1].main=egirl.ing'
+         - 'traefik.http.routers.egirl-secure.tls.domains[0].sans=authentik.egirl.ing'
+         - 'traefik.http.routers.egirl-secure.tls.domains[0].main=egirl.ing'
          - 'traefik.http.routers.egirl-secure.service=authentik'
          - 'traefik.http.services.authentik.loadbalancer.server.port=9000'
       env_file:
@@ -275,19 +267,17 @@ services:
       labels:
          - 'traefik.enable=true'
          - 'traefik.http.routers.traefik.entrypoints=http'
-         - 'traefik.http.routers.traefik.rule=Host(`traefik.egirldev.co.uk`) || Host(`traefik.egirl.ing`)'
+         - 'traefik.http.routers.traefik.rule=Host(`traefik.egirl.ing`)'
          - 'traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https'
          - 'traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https'
          - 'traefik.http.routers.traefik.middlewares=traefik-https-redirect'
          - 'traefik.http.routers.traefik-secure.entrypoints=https'
-         - 'traefik.http.routers.traefik-secure.rule=Host(`traefik.egirldev.co.uk`) || Host(`traefik.egirl.ing`)'
+         - 'traefik.http.routers.traefik-secure.rule=Host(`traefik.egirl.ing`)'
          - 'traefik.http.routers.traefik-secure.middlewares=authentik@file'
          - 'traefik.http.routers.traefik-secure.tls=true'
          - 'traefik.http.routers.traefik-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.traefik-secure.tls.domains[0].main=egirldev.co.uk'
-         - 'traefik.http.routers.traefik-secure.tls.domains[0].sans=traefik.egirldev.co.uk'
-         - 'traefik.http.routers.traefik-secure.tls.domains[1].sans=traefik.egirl.ing'
-         - 'traefik.http.routers.traefik-secure.tls.domains[1].main=egirl.ing'
+         - 'traefik.http.routers.traefik-secure.tls.domains[0].sans=traefik.egirl.ing'
+         - 'traefik.http.routers.traefik-secure.tls.domains[0].main=egirl.ing'
          - 'traefik.http.routers.traefik-secure.service=api@internal'
    cf-companion:
       container_name: cf-companion
@@ -302,13 +292,8 @@ services:
          - CF_TOKEN=${CLOUDFLARE_TOKEN}
          - RC_TYPE=CNAME
          - TARGET_DOMAIN=egirl.ing
-         - DOMAIN1=egirldev.co.uk
          - DOMAIN3=egirl.ing
-         - DOMAIN1_ZONE_ID=${DOMAIN1_ZONE_ID}
          - DOMAIN3_ZONE_ID=${DOMAIN3_ZONE_ID}
-         - DOMAIN1_ACME=true
-         - DOMAIN1_ACME_DNS_PROVIDER=cloudflare
-         - DOMAIN1_PROXIED=TRUE
          - DOMAIN3_ACME=true
          - DOMAIN3_ACME_DNS_PROVIDER=cloudflare
          - DOMAIN3_PROXIED=TRUE
@@ -380,17 +365,15 @@ services:
       labels:
          - 'traefik.enable=true'
          - 'traefik.http.routers.jelu.entrypoints=http'
-         - 'traefik.http.routers.jelu.rule=Host(`jelu.egirldev.co.uk`) || Host(`jelu.egirl.ing`)'
+         - 'traefik.http.routers.jelu.rule=Host(`jelu.egirl.ing`)'
          - 'traefik.http.middlewares.jelu-https-redirect.redirectscheme.scheme=https'
          - 'traefik.http.routers.jelu.middlewares=jelu-https-redirect'
          - 'traefik.http.routers.jelu-secure.entrypoints=https'
-         - 'traefik.http.routers.jelu-secure.rule=Host(`jelu.egirldev.co.uk`) || Host(`jelu.egirl.ing`)'
+         - 'traefik.http.routers.jelu-secure.rule=Host(`jelu.egirl.ing`)'
          - 'traefik.http.routers.jelu-secure.tls=true'
          - 'traefik.http.routers.jelu-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.jelu-secure.tls.domains[0].main=egirldev.co.uk'
-         - 'traefik.http.routers.jelu-secure.tls.domains[0].sans=jelu.egirldev.co.uk'
-         - 'traefik.http.routers.jelu-secure.tls.domains[1].sans=jelu.egirl.ing'
-         - 'traefik.http.routers.jelu-secure.tls.domains[1].main=egirl.ing'
+         - 'traefik.http.routers.jelu-secure.tls.domains[0].sans=jelu.egirl.ing'
+         - 'traefik.http.routers.jelu-secure.tls.domains[0].main=egirl.ing'
          - 'traefik.http.routers.jelu-secure.service=jelu'
          - 'traefik.http.services.jelu.loadbalancer.server.port=1111'
          - 'org.opencontainers.image.ref.name=ubuntu'
@@ -421,18 +404,16 @@ services:
       labels:
          - 'traefik.enable=true'
          - 'traefik.http.routers.multiscrobbler.entrypoints=http'
-         - 'traefik.http.routers.multiscrobbler.rule=Host(`multiscrobbler.egirldev.co.uk`) || Host(`multiscrobbler.egirl.ing`)'
+         - 'traefik.http.routers.multiscrobbler.rule=Host(`multiscrobbler.egirl.ing`)'
          - 'traefik.http.middlewares.multiscrobbler-https-redirect.redirectscheme.scheme=https'
          - 'traefik.http.routers.multiscrobbler.middlewares=multiscrobbler-https-redirect'
          - 'traefik.http.routers.multiscrobbler-secure.entrypoints=https'
-         - 'traefik.http.routers.multiscrobbler-secure.rule=Host(`multiscrobbler.egirldev.co.uk`) || Host(`multiscrobbler.egirl.ing`)'
+         - 'traefik.http.routers.multiscrobbler-secure.rule=Host(`multiscrobbler.egirl.ing`)'
          - 'traefik.http.routers.multiscrobbler-secure.tls=true'
          - 'traefik.http.routers.multiscrobbler-secure.tls.certresolver=cloudflare'
          - 'traefik.http.routers.multiscrobbler-secure.middlewares=authentik@file'
-         - 'traefik.http.routers.multiscrobbler-secure.tls.domains[0].main=egirldev.co.uk'
-         - 'traefik.http.routers.multiscrobbler-secure.tls.domains[0].sans=multiscrobbler.egirldev.co.uk'
-         - 'traefik.http.routers.multiscrobbler-secure.tls.domains[1].sans=multiscrobbler.egirl.ing'
-         - 'traefik.http.routers.multiscrobbler-secure.tls.domains[1].main=egirl.ing'
+         - 'traefik.http.routers.multiscrobbler-secure.tls.domains[0].sans=multiscrobbler.egirl.ing'
+         - 'traefik.http.routers.multiscrobbler-secure.tls.domains[0].main=egirl.ing'
          - 'traefik.http.routers.multiscrobbler-secure.service=multiscrobbler'
          - 'traefik.http.services.multiscrobbler.loadbalancer.server.port=9087'
 
@@ -459,17 +440,15 @@ services:
       labels:
          - 'traefik.enable=true'
          - 'traefik.http.routers.maloja.entrypoints=http'
-         - 'traefik.http.routers.maloja.rule=Host(`scrobble.egirldev.co.uk`) || Host(`scrobble.egirl.ing`)'
+         - 'traefik.http.routers.maloja.rule=Host(`scrobble.egirl.ing`)'
          - 'traefik.http.middlewares.maloja-https-redirect.redirectscheme.scheme=https'
          - 'traefik.http.routers.maloja.middlewares=maloja-https-redirect'
          - 'traefik.http.routers.maloja-secure.entrypoints=https'
-         - 'traefik.http.routers.maloja-secure.rule=Host(`scrobble.egirldev.co.uk`) || Host(`scrobble.egirl.ing`)'
+         - 'traefik.http.routers.maloja-secure.rule=Host(`scrobble.egirl.ing`)'
          - 'traefik.http.routers.maloja-secure.tls=true'
          - 'traefik.http.routers.maloja-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.maloja-secure.tls.domains[0].main=egirldev.co.uk'
-         - 'traefik.http.routers.maloja-secure.tls.domains[0].sans=scrobble.egirldev.co.uk'
-         - 'traefik.http.routers.maloja-secure.tls.domains[1].sans=scrobble.egirl.ing'
-         - 'traefik.http.routers.maloja-secure.tls.domains[1].main=egirl.ing'
+         - 'traefik.http.routers.maloja-secure.tls.domains[0].sans=scrobble.egirl.ing'
+         - 'traefik.http.routers.maloja-secure.tls.domains[0].main=egirl.ing'
          - 'traefik.http.routers.maloja-secure.service=maloja'
          - 'traefik.http.services.maloja.loadbalancer.server.port=42010'
    crowdsec-cloudflare-bouncer:
@@ -491,7 +470,7 @@ services:
          - IMGPROXY_BIND=:79
          - IMGPROXY_KEY=${IMGPROXY_KEY}
          - IMGPROXY_SALT=${IMGPROXY_SALT}
-         - IMGPROXY_ALLOWED_SOURCES=https://twitch.tv/,https://egirl.ing/,https://egirldev.co.uk/,https://media.discordapp.com/,https://cdn.rcd.gg,https://media.discordapp.net/,https://cdn.discordapp.com/,local://
+         - IMGPROXY_ALLOWED_SOURCES=https://twitch.tv/,https://egirl.ing/,https://media.discordapp.com/,https://cdn.rcd.gg,https://media.discordapp.net/,https://cdn.discordapp.com/,local://
          - IMGPROXY_ALLOWED_EXTENSIONS="jpeg,jpg,png,webp,gif,svg,avif"
          - IMGPROXY_FREE_MEMORY_INTERVAL=10
          - IMGPROXY_DOWNLOAD_BUFFER_SIZE=0
@@ -501,17 +480,15 @@ services:
       labels:
          - 'traefik.enable=true'
          - 'traefik.http.routers.imgproxy.entrypoints=http'
-         - 'traefik.http.routers.imgproxy.rule=Host(`img.egirldev.co.uk`) || Host(`img.egirl.ing`)'
+         - 'traefik.http.routers.imgproxy.rule=Host(`img.egirl.ing`)'
          - 'traefik.http.middlewares.imgproxy-https-redirect.redirectscheme.scheme=https'
          - 'traefik.http.routers.imgproxy.middlewares=imgproxy-https-redirect'
          - 'traefik.http.routers.imgproxy-secure.entrypoints=https'
-         - 'traefik.http.routers.imgproxy-secure.rule=Host(`img.egirldev.co.uk`) || Host(`img.egirl.ing`)'
+         - 'traefik.http.routers.imgproxy-secure.rule=Host(`img.egirl.ing`)'
          - 'traefik.http.routers.imgproxy-secure.tls=true'
          - 'traefik.http.routers.imgproxy-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.imgproxy-secure.tls.domains[0].main=egirldev.co.uk'
-         - 'traefik.http.routers.imgproxy-secure.tls.domains[0].sans=img.egirldev.co.uk'
-         - 'traefik.http.routers.imgproxy-secure.tls.domains[1].sans=img.egirl.ing'
-         - 'traefik.http.routers.imgproxy-secure.tls.domains[1].main=egirl.ing'
+         - 'traefik.http.routers.imgproxy-secure.tls.domains[0].sans=img.egirl.ing'
+         - 'traefik.http.routers.imgproxy-secure.tls.domains[0].main=egirl.ing'
          - 'traefik.http.routers.imgproxy-secure.service=imgproxy'
          - 'traefik.http.services.imgproxy.loadbalancer.server.port=79'
       volumes:
@@ -534,17 +511,15 @@ services:
       labels:
          - 'traefik.enable=true'
          - 'traefik.http.routers.ghost.entrypoints=http'
-         - 'traefik.http.routers.ghost.rule=Host(`blog.egirldev.co.uk`) || Host(`blog.egirl.ing`)'
+         - 'traefik.http.routers.ghost.rule=Host(`blog.egirl.ing`)'
          - 'traefik.http.middlewares.ghost-https-redirect.redirectscheme.scheme=https'
          - 'traefik.http.routers.ghost.middlewares=ghost-https-redirect'
          - 'traefik.http.routers.ghost-secure.entrypoints=https'
-         - 'traefik.http.routers.ghost-secure.rule=Host(`blog.egirldev.co.uk`) || Host(`blog.egirl.ing`)'
+         - 'traefik.http.routers.ghost-secure.rule=Host(`blog.egirl.ing`)'
          - 'traefik.http.routers.ghost-secure.tls=true'
          - 'traefik.http.routers.ghost-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.ghost-secure.tls.domains[0].main=egirldev.co.uk'
-         - 'traefik.http.routers.ghost-secure.tls.domains[0].sans=blog.egirldev.co.uk'
-         - 'traefik.http.routers.ghost-secure.tls.domains[1].sans=blog.egirl.ing'
-         - 'traefik.http.routers.ghost-secure.tls.domains[1].main=egirl.ing'
+         - 'traefik.http.routers.ghost-secure.tls.domains[0].sans=blog.egirl.ing'
+         - 'traefik.http.routers.ghost-secure.tls.domains[0].main=egirl.ing'
          - 'traefik.http.routers.ghost-secure.service=ghost'
          - 'traefik.http.services.ghost.loadbalancer.server.port=2368'
       volumes:
@@ -603,18 +578,16 @@ services:
          - DATASOURCE_S3_USE_SSL=true
       labels:
          - 'traefik.enable=true'
-         - 'traefik.http.routers.uploader.rule=Host(`upload.egirldev.co.uk`) || Host(`upload.egirl.ing`)'
+         - 'traefik.http.routers.uploader.rule=Host(`upload.egirl.ing`)'
          - 'traefik.http.routers.uploader.entrypoints=http'
          - 'traefik.http.routers.uploader.middlewares=uploader-https-redirect'
          - 'traefik.http.middlewares.uploader-https-redirect.redirectscheme.scheme=https'
-         - 'traefik.http.routers.uploader-secure.rule=Host(`upload.egirldev.co.uk`) || Host(`upload.egirl.ing`)'
+         - 'traefik.http.routers.uploader-secure.rule=Host(`upload.egirl.ing`)'
          - 'traefik.http.routers.uploader-secure.entrypoints=https'
          - 'traefik.http.routers.uploader-secure.tls=true'
          - 'traefik.http.routers.uploader-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.uploader-secure.tls.domains[0].main=egirldev.co.uk'
-         - 'traefik.http.routers.uploader-secure.tls.domains[0].sans=upload.egirldev.co.uk'
-         - 'traefik.http.routers.uploader-secure.tls.domains[1].sans=upload.egirl.ing'
-         - 'traefik.http.routers.uploader-secure.tls.domains[1].main=egirl.ing'
+         - 'traefik.http.routers.uploader-secure.tls.domains[0].sans=upload.egirl.ing'
+         - 'traefik.http.routers.uploader-secure.tls.domains[0].main=egirl.ing'
          - 'traefik.http.routers.uploader-secure.service=uploader'
          - 'traefik.http.services.uploader.loadbalancer.server.port=3000'
       volumes:
@@ -629,17 +602,15 @@ services:
          - /opt/otterwiki/media:/app-data/repository/home/
       labels:
          - 'traefik.enable=true'
-         - 'traefik.http.routers.otterwiki.rule=Host(`hrt.egirldev.co.uk`) || Host(`hrt.egirl.ing`)'
+         - 'traefik.http.routers.otterwiki.rule=Host(`hrt.egirl.ing`)'
          - 'traefik.http.routers.otterwiki.entrypoints=http'
          - 'traefik.http.routers.otterwiki.middlewares=otterwiki-https-redirect'
          - 'traefik.http.middlewares.otterwiki-https-redirect.redirectscheme.scheme=https'
-         - 'traefik.http.routers.otterwiki-secure.rule=Host(`hrt.egirldev.co.uk`) || Host(`hrt.egirl.ing`)'
+         - 'traefik.http.routers.otterwiki-secure.rule=Host(`hrt.egirl.ing`)'
          - 'traefik.http.routers.otterwiki-secure.entrypoints=https'
          - 'traefik.http.routers.otterwiki-secure.tls=true'
          - 'traefik.http.routers.otterwiki-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.otterwiki-secure.tls.domains[0].main=egirldev.co.uk'
-         - 'traefik.http.routers.otterwiki-secure.tls.domains[0].sans=hrt.egirldev.co.uk'
-         - 'traefik.http.routers.otterwiki-secure.tls.domains[1].sans=hrt.egirl.ing'
-         - 'traefik.http.routers.otterwiki-secure.tls.domains[1].main=egirl.ing'
+         - 'traefik.http.routers.otterwiki-secure.tls.domains[0].sans=hrt.egirl.ing'
+         - 'traefik.http.routers.otterwiki-secure.tls.domains[0].main=egirl.ing'
          - 'traefik.http.routers.otterwiki-secure.service=otterwiki'
          - 'traefik.http.services.otterwiki.loadbalancer.server.port=8080'
