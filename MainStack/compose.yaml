@@ -641,7 +641,7 @@ services:
 
    db-koito:
       image: postgres:16
-      container_name: psql
+      container_name: db-koito
       restart: unless-stopped
       environment:
          POSTGRES_DB: koitodb
