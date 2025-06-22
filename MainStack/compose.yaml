@@ -621,7 +621,7 @@ services:
          - db-koito
       environment:
          - KOITO_DATABASE_URL=postgres://postgres:${KOITO_POSTGRES}@db-koito:5432/koitodb
-         - KOITO_ALLOWED_HOSTS=koito.egirl.ing,multiscrobbler
+         - KOITO_ALLOWED_HOSTS=koito.egirl.ing,multiscrobbler,localhost
          - PUID=1000
          - PGID=1000
       volumes:
