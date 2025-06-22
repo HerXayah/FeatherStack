@@ -618,7 +618,7 @@ services:
       image: gabehf/koito:latest
       container_name: koito
       depends_on:
-         - db
+         - db-koito
       environment:
          - KOITO_DATABASE_URL=postgres://postgres:secret_password@db:5432/koitodb
          - KOITO_ALLOWED_HOSTS=koito.egirl.ing
