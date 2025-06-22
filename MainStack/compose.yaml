@@ -620,7 +620,7 @@ services:
       depends_on:
          - db-koito
       environment:
-         - KOITO_DATABASE_URL=postgres://postgres:secret_password@db:5432/koitodb
+         - KOITO_DATABASE_URL=postgres://postgres:${KOITO_POSTGRES}@db:5432/koitodb
          - KOITO_ALLOWED_HOSTS=koito.egirl.ing
       volumes:
          - /opt/koito/koito-data:/etc/koito
@@ -646,6 +646,6 @@ services:
       environment:
          POSTGRES_DB: koitodb
          POSTGRES_USER: postgres
-         POSTGRES_PASSWORD: secret_password
+         POSTGRES_PASSWORD: ${KOITO_POSTGRES}
       volumes:
          - /opt/koito/db-data:/var/lib/postgresql/data
