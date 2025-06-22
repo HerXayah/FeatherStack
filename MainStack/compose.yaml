@@ -493,51 +493,51 @@ services:
          - 'traefik.http.services.imgproxy.loadbalancer.server.port=79'
       volumes:
          - /opt/imgproxy/:/opt/imgproxy/
-   ghost:
-      image: ghost:5
-      container_name: ghost
-      restart: unless-stopped
-      environment:
-         - url=https://blog.egirl.ing
-         - NODE_ENV=production
-         - TZ=Europe/Berlin
-         - VIRTUAL_HOST=blog.egirl.ing
-         - VIRTUAL_PORT=2368
-         - database__client=mysql
-         - database__connection__host=database-ghost
-         - database__connection__user=ghost
-         - database__connection__password=${GHOST_DB_PW}
-         - database__connection__database=ghost
-      labels:
-         - 'traefik.enable=true'
-         - 'traefik.http.routers.ghost.entrypoints=http'
-         - 'traefik.http.routers.ghost.rule=Host(`blog.egirl.ing`)'
-         - 'traefik.http.middlewares.ghost-https-redirect.redirectscheme.scheme=https'
-         - 'traefik.http.routers.ghost.middlewares=ghost-https-redirect'
-         - 'traefik.http.routers.ghost-secure.entrypoints=https'
-         - 'traefik.http.routers.ghost-secure.rule=Host(`blog.egirl.ing`)'
-         - 'traefik.http.routers.ghost-secure.tls=true'
-         - 'traefik.http.routers.ghost-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.ghost-secure.tls.domains[0].sans=blog.egirl.ing'
-         - 'traefik.http.routers.ghost-secure.tls.domains[0].main=egirl.ing'
-         - 'traefik.http.routers.ghost-secure.service=ghost'
-         - 'traefik.http.services.ghost.loadbalancer.server.port=2368'
-      volumes:
-         - /opt/ghost/:/var/lib/ghost/content
-   database-ghost:
-      image: mysql:9
-      container_name: ghost_db
-      restart: always
-      volumes:
-         - /opt/ghostDB/:/var/lib/mysql
-      environment:
-         MYSQL_ROOT_PASSWORD: ${GHOST_DB_ROOT_PW}
-         MYSQL_DATABASE: ghost
-         MYSQL_USER: ghost
-         MYSQL_PASSWORD: ${GHOST_DB_PW}
-   mail:
-      image: bytemark/smtp
-      restart: always
+   #ghost:
+   #   image: ghost:5
+   #   container_name: ghost
+   #   restart: unless-stopped
+   #   environment:
+   #      - url=https://blog.egirl.ing
+   #      - NODE_ENV=production
+   #      - TZ=Europe/Berlin
+   #      - VIRTUAL_HOST=blog.egirl.ing
+   #      - VIRTUAL_PORT=2368
+   #      - database__client=mysql
+   #      - database__connection__host=database-ghost
+   #      - database__connection__user=ghost
+   #      - database__connection__password=${GHOST_DB_PW}
+   #      - database__connection__database=ghost
+   #   labels:
+   #      - 'traefik.enable=true'
+   #      - 'traefik.http.routers.ghost.entrypoints=http'
+   #      - 'traefik.http.routers.ghost.rule=Host(`blog.egirl.ing`)'
+   #      - 'traefik.http.middlewares.ghost-https-redirect.redirectscheme.scheme=https'
+   #      - 'traefik.http.routers.ghost.middlewares=ghost-https-redirect'
+   #      - 'traefik.http.routers.ghost-secure.entrypoints=https'
+   #      - 'traefik.http.routers.ghost-secure.rule=Host(`blog.egirl.ing`)'
+   #      - 'traefik.http.routers.ghost-secure.tls=true'
+   #      - 'traefik.http.routers.ghost-secure.tls.certresolver=cloudflare'
+   #      - 'traefik.http.routers.ghost-secure.tls.domains[0].sans=blog.egirl.ing'
+   #      - 'traefik.http.routers.ghost-secure.tls.domains[0].main=egirl.ing'
+   #      - 'traefik.http.routers.ghost-secure.service=ghost'
+   #      - 'traefik.http.services.ghost.loadbalancer.server.port=2368'
+   #   volumes:
+   #      - /opt/ghost/:/var/lib/ghost/content
+   #database-ghost:
+   #   image: mysql:9
+   #   container_name: ghost_db
+   #   restart: always
+   #   volumes:
+   #      - /opt/ghostDB/:/var/lib/mysql
+   #   environment:
+   #      MYSQL_ROOT_PASSWORD: ${GHOST_DB_ROOT_PW}
+   #      MYSQL_DATABASE: ghost
+   #      MYSQL_USER: ghost
+   #      MYSQL_PASSWORD: ${GHOST_DB_PW}
+   #mail:
+   #   image: bytemark/smtp
+   #   restart: always
 
    postgres:
       image: postgres:15
@@ -554,45 +554,45 @@ services:
          timeout: 5s
          retries: 5
 
-   uploader:
-      image: ghcr.io/diced/zipline:v3-trunk
-      container_name: uploader
-      restart: unless-stopped
-      environment:
-         - CORE_SECRET=${CORE_SECRET}
-         - CORE_DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/zipline_db
-         - FEATURES_INVITES=false
-         - FEATURES_USER_REGISTRATION=false
-         - FEATURES_ROBOTS_TXT=true
-         - MFA_TOTP_ENABLED=true
-         - MFA_TOTP_ISSUER=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
-         - WEBSITE_TITLE=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
-         - WEBSITE_SHOW_VERSION=false
-         - DATASOURCE_TYPE=s3
-         - DATASOURCE_S3_SECRET_ACCESS_KEY=${DATASOURCE_S3_SECRET_ACCESS_KEY}
-         - DATASOURCE_S3_ACCESS_KEY_ID=${DATASOURCE_S3_ACCESS_KEY_ID}
-         - DATASOURCE_S3_ENDPOINT=${DATASOURCE_S3_ENDPOINT}
-         - DATASOURCE_S3_BUCKET=${DATASOURCE_S3_BUCKET}
-         - DATASOURCE_S3_REGION=EEUR
-         - DATASOURCE_S3_FORCE_S3_PATH=false
-         - DATASOURCE_S3_USE_SSL=true
-      labels:
-         - 'traefik.enable=true'
-         - 'traefik.http.routers.uploader.rule=Host(`upload.egirl.ing`)'
-         - 'traefik.http.routers.uploader.entrypoints=http'
-         - 'traefik.http.routers.uploader.middlewares=uploader-https-redirect'
-         - 'traefik.http.middlewares.uploader-https-redirect.redirectscheme.scheme=https'
-         - 'traefik.http.routers.uploader-secure.rule=Host(`upload.egirl.ing`)'
-         - 'traefik.http.routers.uploader-secure.entrypoints=https'
-         - 'traefik.http.routers.uploader-secure.tls=true'
-         - 'traefik.http.routers.uploader-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.uploader-secure.tls.domains[0].sans=upload.egirl.ing'
-         - 'traefik.http.routers.uploader-secure.tls.domains[0].main=egirl.ing'
-         - 'traefik.http.routers.uploader-secure.service=uploader'
-         - 'traefik.http.services.uploader.loadbalancer.server.port=3000'
-      volumes:
-         - /opt/zipline/uploads:/zipline/uploads
-         - /opt/zipline/public:/zipline/public
+   #uploader:
+   #   image: ghcr.io/diced/zipline:v3-trunk
+   #   container_name: uploader
+   #   restart: unless-stopped
+   #   environment:
+   #      - CORE_SECRET=${CORE_SECRET}
+   #      - CORE_DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/zipline_db
+   #      - FEATURES_INVITES=false
+   #      - FEATURES_USER_REGISTRATION=false
+   #      - FEATURES_ROBOTS_TXT=true
+   #      - MFA_TOTP_ENABLED=true
+   #      - MFA_TOTP_ISSUER=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
+   #      - WEBSITE_TITLE=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
+   #      - WEBSITE_SHOW_VERSION=false
+   #      - DATASOURCE_TYPE=s3
+   #      - DATASOURCE_S3_SECRET_ACCESS_KEY=${DATASOURCE_S3_SECRET_ACCESS_KEY}
+   #      - DATASOURCE_S3_ACCESS_KEY_ID=${DATASOURCE_S3_ACCESS_KEY_ID}
+   #      - DATASOURCE_S3_ENDPOINT=${DATASOURCE_S3_ENDPOINT}
+   #      - DATASOURCE_S3_BUCKET=${DATASOURCE_S3_BUCKET}
+   #      - DATASOURCE_S3_REGION=EEUR
+   #      - DATASOURCE_S3_FORCE_S3_PATH=false
+   #      - DATASOURCE_S3_USE_SSL=true
+   #   labels:
+   #      - 'traefik.enable=true'
+   #      - 'traefik.http.routers.uploader.rule=Host(`upload.egirl.ing`)'
+   #      - 'traefik.http.routers.uploader.entrypoints=http'
+   #      - 'traefik.http.routers.uploader.middlewares=uploader-https-redirect'
+   #      - 'traefik.http.middlewares.uploader-https-redirect.redirectscheme.scheme=https'
+   #      - 'traefik.http.routers.uploader-secure.rule=Host(`upload.egirl.ing`)'
+   #      - 'traefik.http.routers.uploader-secure.entrypoints=https'
+   #      - 'traefik.http.routers.uploader-secure.tls=true'
+   #      - 'traefik.http.routers.uploader-secure.tls.certresolver=cloudflare'
+   #      - 'traefik.http.routers.uploader-secure.tls.domains[0].sans=upload.egirl.ing'
+   #      - 'traefik.http.routers.uploader-secure.tls.domains[0].main=egirl.ing'
+   #      - 'traefik.http.routers.uploader-secure.service=uploader'
+   #      - 'traefik.http.services.uploader.loadbalancer.server.port=3000'
+   #   volumes:
+   #      - /opt/zipline/uploads:/zipline/uploads
+   #      - /opt/zipline/public:/zipline/public
    otterwiki:
       image: redimp/otterwiki:latest
       container_name: otterwiki
@@ -614,3 +614,38 @@ services:
          - 'traefik.http.routers.otterwiki-secure.tls.domains[0].main=egirl.ing'
          - 'traefik.http.routers.otterwiki-secure.service=otterwiki'
          - 'traefik.http.services.otterwiki.loadbalancer.server.port=8080'
+   koito:
+      image: gabehf/koito:latest
+      container_name: koito
+      depends_on:
+         - db
+      environment:
+         - KOITO_DATABASE_URL=postgres://postgres:secret_password@db:5432/koitodb
+         - KOITO_ALLOWED_HOSTS=koito.egirl.ing
+      volumes:
+         - /opt/koito/koito-data:/etc/koito
+      restart: unless-stopped
+      labels:
+         - 'traefik.enable=true'
+         - 'traefik.http.routers.koito.rule=Host(`koito.egirl.ing`)'
+         - 'traefik.http.routers.koito.entrypoints=http'
+         - 'traefik.http.routers.koito.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.koito.middlewares=koito-https-redirect'
+         - 'traefik.http.routers.koito-secure.entrypoints=https'
+         - 'traefik.http.routers.koito-secure.rule=Host(`koito.egirl.ing`)'
+         - 'traefik.http.routers.koito-secure.tls=true'
+         - 'traefik.http.routers.koito-secure.tls.domains[0].sans=koito.egirl.ing'
+         - 'traefik.http.routers.koito-secure.tls.domains[0].main=egirl.ing'
+         - 'traefik.http.routers.koito-secure.service=koito'
+         - 'traefik.http.services.koito.loadbalancer.server.port=4110'
+
+   db-koito:
+      image: postgres:16
+      container_name: psql
+      restart: unless-stopped
+      environment:
+         POSTGRES_DB: koitodb
+         POSTGRES_USER: postgres
+         POSTGRES_PASSWORD: secret_password
+      volumes:
+         - /opt/koito/db-data:/var/lib/postgresql/data
