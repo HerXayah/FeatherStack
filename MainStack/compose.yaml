@@ -622,6 +622,8 @@ services:
       environment:
          - KOITO_DATABASE_URL=postgres://postgres:${KOITO_POSTGRES}@db-koito:5432/koitodb
          - KOITO_ALLOWED_HOSTS=koito.egirl.ing
+         - PUID=1000
+         - PGID=1000
       volumes:
          - /opt/koito/koito-data:/etc/koito
       restart: unless-stopped
@@ -647,5 +649,7 @@ services:
          POSTGRES_DB: koitodb
          POSTGRES_USER: postgres
          POSTGRES_PASSWORD: ${KOITO_POSTGRES}
+         PUID: 1000
+         PGID: 1000
       volumes:
          - /opt/koito/db-data:/var/lib/postgresql/data
