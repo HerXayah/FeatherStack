@@ -53,9 +53,9 @@ services:
          - 'traefik.http.routers.komodo-secure.tls.domains[1].main=komodo.egirl.ing'
          - 'traefik.http.routers.komodo-secure.service=komodo'
          - 'traefik.http.services.komodo.loadbalancer.server.port=9120'
-      environment: # https://github.com/mbecker20/komodo/blob/main/config_example/core.config.example.toml
+      environment:
          KOMODO_HOST: https://komodo.egirl.ing
-         KOMODO_TITLE: Egirltainer # Change the app title, displayed in the browser tab.
+         KOMODO_TITLE: Egirltainer 
          ## MONGO
          KOMODO_MONGO_ADDRESS: komodo-mongo:27017
          KOMODO_MONGO_USERNAME: ${KOMODO_MONGO_USERNAME}
