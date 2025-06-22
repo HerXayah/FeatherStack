@@ -379,7 +379,7 @@ services:
          - 'org.opencontainers.image.ref.name=ubuntu'
          - 'org.opencontainers.image.version=22.04'
    multiscrobbler:
-      image: foxxmd/multi-scrobbler:lagtest
+      image: foxxmd/multi-scrobbler:latest
       container_name: multiscrobbler
       restart: unless-stopped
       entrypoint: /init
