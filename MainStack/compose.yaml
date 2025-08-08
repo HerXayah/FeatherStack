@@ -175,6 +175,7 @@ services:
          - 'traefik.http.services.express-test.loadbalancer.server.port=3000'
       volumes:
          - /opt/html/miellaweb:/usr/app/public
+         - /opt/html/server.js:/usr/app/server.js
    authentikpostgres:
       image: docker.io/library/postgres:16-alpine
       container_name: authentik-postgres
