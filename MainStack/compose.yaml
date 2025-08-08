@@ -497,39 +497,39 @@ services:
          - /etc/localtime:/etc/localtime:ro
          - /opt/CFBouncer/crowdsec-cloudflare-bouncer.yaml:/etc/crowdsec/bouncers/crowdsec-cloudflare-bouncer.yaml:ro
          - /var/log/crowdsec-cloudflare-bouncer:/var/log/
-   imgproxy:
-      image: darthsim/imgproxy:v3.25
-      container_name: imgproxy
-      restart: unless-stopped
-      environment:
-         - IMGPROXY_LOG_LEVEL=info
-         - IMGPROXY_LOG_FORMAT=text
-         - IMGPROXY_BIND=:79
-         - IMGPROXY_KEY=${IMGPROXY_KEY}
-         - IMGPROXY_SALT=${IMGPROXY_SALT}
-         - IMGPROXY_ALLOWED_SOURCES=https://twitch.tv/,https://egirl.ing/,https://media.discordapp.com/,https://cdn.rcd.gg,https://media.discordapp.net/,https://cdn.discordapp.com/,local://
-         - IMGPROXY_ALLOWED_EXTENSIONS="jpeg,jpg,png,webp,gif,svg,avif"
-         - IMGPROXY_FREE_MEMORY_INTERVAL=10
-         - IMGPROXY_DOWNLOAD_BUFFER_SIZE=0
-         - IMGPROXY_BUFFER_POOL_CALIBRATION_THRESHOLD=1024
-         - IMGPROXY_ENABLE_AVIF_DETECTION=true
-         - IMGPROXY_LOCAL_FILESYSTEM_ROOT=/opt/imgproxy/
-      labels:
-         - 'traefik.enable=true'
-         - 'traefik.http.routers.imgproxy.entrypoints=http'
-         - 'traefik.http.routers.imgproxy.rule=Host(`img.egirl.ing`)'
-         - 'traefik.http.middlewares.imgproxy-https-redirect.redirectscheme.scheme=https'
-         - 'traefik.http.routers.imgproxy.middlewares=imgproxy-https-redirect'
-         - 'traefik.http.routers.imgproxy-secure.entrypoints=https'
-         - 'traefik.http.routers.imgproxy-secure.rule=Host(`img.egirl.ing`)'
-         - 'traefik.http.routers.imgproxy-secure.tls=true'
-         - 'traefik.http.routers.imgproxy-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.imgproxy-secure.tls.domains[0].sans=img.egirl.ing'
-         - 'traefik.http.routers.imgproxy-secure.tls.domains[0].main=egirl.ing'
-         - 'traefik.http.routers.imgproxy-secure.service=imgproxy'
-         - 'traefik.http.services.imgproxy.loadbalancer.server.port=79'
-      volumes:
-         - /opt/imgproxy/:/opt/imgproxy/
+   #imgproxy:
+   #   image: darthsim/imgproxy:v3.25
+   #   container_name: imgproxy
+   #   restart: unless-stopped
+   #   environment:
+   #      - IMGPROXY_LOG_LEVEL=info
+   #      - IMGPROXY_LOG_FORMAT=text
+   #      - IMGPROXY_BIND=:79
+   #      - IMGPROXY_KEY=${IMGPROXY_KEY}
+   #      - IMGPROXY_SALT=${IMGPROXY_SALT}
+   #      - IMGPROXY_ALLOWED_SOURCES=https://twitch.tv/,https://egirl.ing/,https://media.discordapp.com/,https://cdn.rcd.gg,https://media.discordapp.net/,https://cdn.discordapp.com/,local://
+   #      - IMGPROXY_ALLOWED_EXTENSIONS="jpeg,jpg,png,webp,gif,svg,avif"
+   #      - IMGPROXY_FREE_MEMORY_INTERVAL=10
+   #      - IMGPROXY_DOWNLOAD_BUFFER_SIZE=0
+   #      - IMGPROXY_BUFFER_POOL_CALIBRATION_THRESHOLD=1024
+   #      - IMGPROXY_ENABLE_AVIF_DETECTION=true
+   #      - IMGPROXY_LOCAL_FILESYSTEM_ROOT=/opt/imgproxy/
+   #   labels:
+   #      - 'traefik.enable=true'
+   #      - 'traefik.http.routers.imgproxy.entrypoints=http'
+   #      - 'traefik.http.routers.imgproxy.rule=Host(`img.egirl.ing`)'
+   #      - 'traefik.http.middlewares.imgproxy-https-redirect.redirectscheme.scheme=https'
+   #      - 'traefik.http.routers.imgproxy.middlewares=imgproxy-https-redirect'
+   #      - 'traefik.http.routers.imgproxy-secure.entrypoints=https'
+   #      - 'traefik.http.routers.imgproxy-secure.rule=Host(`img.egirl.ing`)'
+   #      - 'traefik.http.routers.imgproxy-secure.tls=true'
+   #      - 'traefik.http.routers.imgproxy-secure.tls.certresolver=cloudflare'
+   #      - 'traefik.http.routers.imgproxy-secure.tls.domains[0].sans=img.egirl.ing'
+   #      - 'traefik.http.routers.imgproxy-secure.tls.domains[0].main=egirl.ing'
+   #      - 'traefik.http.routers.imgproxy-secure.service=imgproxy'
+   #      - 'traefik.http.services.imgproxy.loadbalancer.server.port=79'
+   #   volumes:
+   #      - /opt/imgproxy/:/opt/imgproxy/
    #ghost:
    #   image: ghost:5
    #   container_name: ghost
