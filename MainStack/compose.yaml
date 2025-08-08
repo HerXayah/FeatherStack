@@ -107,29 +107,29 @@ services:
          - GIN_MODE=debug
       depends_on:
          - crowdsec
-   nginx:
-      image: fholzer/nginx-brotli:latest
-      container_name: nginx-node
-      restart: unless-stopped
-      environment:
-         - NGINX_PORT=80
-      labels:
-         - 'traefik.enable=true'
-         - 'traefik.http.routers.nginx.rule=Host(`egirl.ing`)'
-         - 'traefik.http.routers.nginx.entrypoints=http'
-         - 'traefik.http.routers.nginx.middlewares=nginx-https-redirect'
-         - 'traefik.http.middlewares.nginx-https-redirect.redirectscheme.scheme=https'
-         - 'traefik.http.routers.nginx-secure.rule=Host(`egirl.ing`)'
-         - 'traefik.http.routers.nginx-secure.entrypoints=https'
-         - 'traefik.http.routers.nginx-secure.tls=true'
-         - 'traefik.http.routers.nginx-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.nginx-secure.tls.domains[0].sans=egirl.ing'
-         - 'traefik.http.routers.nginx-secure.tls.domains[0].main=egirl.ing'
-         - 'traefik.http.routers.nginx-secure.service=nginx-node'
-         - 'traefik.http.services.nginx-node.loadbalancer.server.port=80'
-      volumes:
-         - /opt/html/egirl:/usr/share/nginx/html:ro
-         - nginxmain_data:/var/log/nginx/:rw
+   #nginx:
+   #   image: fholzer/nginx-brotli:latest
+   #   container_name: nginx-node
+   #   restart: unless-stopped
+   #   environment:
+   #      - NGINX_PORT=80
+   #   labels:
+   #      - 'traefik.enable=true'
+   #      - 'traefik.http.routers.nginx.rule=Host(`egirl.ing`)'
+   #      - 'traefik.http.routers.nginx.entrypoints=http'
+   #      - 'traefik.http.routers.nginx.middlewares=nginx-https-redirect'
+   #      - 'traefik.http.middlewares.nginx-https-redirect.redirectscheme.scheme=https'
+   #      - 'traefik.http.routers.nginx-secure.rule=Host(`egirl.ing`)'
+   #      - 'traefik.http.routers.nginx-secure.entrypoints=https'
+   #      - 'traefik.http.routers.nginx-secure.tls=true'
+   #      - 'traefik.http.routers.nginx-secure.tls.certresolver=cloudflare'
+   #      - 'traefik.http.routers.nginx-secure.tls.domains[0].sans=egirl.ing'
+   #      - 'traefik.http.routers.nginx-secure.tls.domains[0].main=egirl.ing'
+   #      - 'traefik.http.routers.nginx-secure.service=nginx-node'
+   #      - 'traefik.http.services.nginx-node.loadbalancer.server.port=80'
+   #   volumes:
+   #      - /opt/html/egirl:/usr/share/nginx/html:ro
+   #      - nginxmain_data:/var/log/nginx/:rw
    nginx-2:
       image: fholzer/nginx-brotli:latest
       container_name: nginx-playnite
@@ -153,7 +153,7 @@ services:
       volumes:
          - /opt/html/Playnite-Export:/usr/share/nginx/html:ro
          - nginxgames_data:/var/log/nginx/
-   express-test:
+   express:
       image: miellaweb:latest
       container_name: miellaweb
       restart: unless-stopped
@@ -161,18 +161,32 @@ services:
          - PORT=3000
       labels:
          - 'traefik.enable=true'
-         - 'traefik.http.routers.express-test.rule=Host(`test.egirl.ing`)'
-         - 'traefik.http.routers.express-test.entrypoints=http'
-         - 'traefik.http.routers.express-test.middlewares=nginx-https-redirect'
+         - 'traefik.http.routers.nginx.rule=Host(`egirl.ing`)'
+         - 'traefik.http.routers.nginx.entrypoints=http'
+         - 'traefik.http.routers.nginx.middlewares=nginx-https-redirect'
          - 'traefik.http.middlewares.nginx-https-redirect.redirectscheme.scheme=https'
-         - 'traefik.http.routers.express-test-secure.rule=Host(`test.egirl.ing`)'
-         - 'traefik.http.routers.express-test-secure.entrypoints=https'
-         - 'traefik.http.routers.express-test-secure.tls=true'
-         - 'traefik.http.routers.express-test-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.express-test-secure.tls.domains[0].sans=test.egirl.ing'
-         - 'traefik.http.routers.express-test-secure.tls.domains[0].main=egirl.ing'
-         - 'traefik.http.routers.express-test-secure.service=express-test'
-         - 'traefik.http.services.express-test.loadbalancer.server.port=3000'
+         - 'traefik.http.routers.nginx-secure.rule=Host(`egirl.ing`)'
+         - 'traefik.http.routers.nginx-secure.entrypoints=https'
+         - 'traefik.http.routers.nginx-secure.tls=true'
+         - 'traefik.http.routers.nginx-secure.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.nginx-secure.tls.domains[0].sans=egirl.ing'
+         - 'traefik.http.routers.nginx-secure.tls.domains[0].main=egirl.ing'
+         - 'traefik.http.routers.nginx-secure.service=nginx-node'
+         - 'traefik.http.services.nginx-node.loadbalancer.server.port=3000'
+      #labels:
+      #   - 'traefik.enable=true'
+      #   - 'traefik.http.routers.express-test.rule=Host(`test.egirl.ing`)'
+      #   - 'traefik.http.routers.express-test.entrypoints=http'
+      #   - 'traefik.http.routers.express-test.middlewares=nginx-https-redirect'
+      #   - 'traefik.http.middlewares.nginx-https-redirect.redirectscheme.scheme=https'
+      #   - 'traefik.http.routers.express-test-secure.rule=Host(`test.egirl.ing`)'
+      #   - 'traefik.http.routers.express-test-secure.entrypoints=https'
+      #   - 'traefik.http.routers.express-test-secure.tls=true'
+      #   - 'traefik.http.routers.express-test-secure.tls.certresolver=cloudflare'
+      #   - 'traefik.http.routers.express-test-secure.tls.domains[0].sans=test.egirl.ing'
+      #   - 'traefik.http.routers.express-test-secure.tls.domains[0].main=egirl.ing'
+      #   - 'traefik.http.routers.express-test-secure.service=express-test'
+      #   - 'traefik.http.services.express-test.loadbalancer.server.port=3000'
       volumes:
          - /opt/html/miellaweb:/usr/app/public
          - /opt/html/server.js:/usr/app/server.js
