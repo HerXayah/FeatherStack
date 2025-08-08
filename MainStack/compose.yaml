@@ -108,7 +108,7 @@ services:
       depends_on:
          - crowdsec
    nginx:
-      image: fholzer/nginx-brotli:v1.26.2
+      image: fholzer/nginx-brotli:latest
       container_name: nginx-node
       restart: unless-stopped
       environment:
@@ -131,7 +131,7 @@ services:
          - /opt/html/egirl:/usr/share/nginx/html:ro
          - nginxmain_data:/var/log/nginx/:rw
    nginx-2:
-      image: fholzer/nginx-brotli:v1.26.2
+      image: fholzer/nginx-brotli:latest
       container_name: nginx-playnite
       restart: unless-stopped
       environment:
@@ -153,6 +153,28 @@ services:
       volumes:
          - /opt/html/Playnite-Export:/usr/share/nginx/html:ro
          - nginxgames_data:/var/log/nginx/
+   express-test:
+      image: miellaweb:latest
+      container_name: miellaweb
+      restart: unless-stopped
+      environment:
+         - PORT=3000
+      labels:
+         - 'traefik.enable=true'
+         - 'traefik.http.routers.express-test.rule=Host(`test.egirl.ing`)'
+         - 'traefik.http.routers.express-test.entrypoints=http'
+         - 'traefik.http.routers.express-test.middlewares=nginx-https-redirect'
+         - 'traefik.http.middlewares.nginx-https-redirect.redirectscheme.scheme=https'
+         - 'traefik.http.routers.express-test-secure.rule=Host(`test.egirl.ing`)'
+         - 'traefik.http.routers.express-test-secure.entrypoints=https'
+         - 'traefik.http.routers.express-test-secure.tls=true'
+         - 'traefik.http.routers.express-test-secure.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.express-test-secure.tls.domains[0].sans=test.egirl.ing'
+         - 'traefik.http.routers.express-test-secure.tls.domains[0].main=egirl.ing'
+         - 'traefik.http.routers.express-test-secure.service=express-test'
+         - 'traefik.http.services.express-test.loadbalancer.server.port=3000'
+      volumes:
+         - /opt/html/miellaweb:/usr/app/public
    authentikpostgres:
       image: docker.io/library/postgres:16-alpine
       container_name: authentik-postgres
