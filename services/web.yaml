@@ -1,5 +1,5 @@
 services:
-   express:
+   miellaweb:
       image: miellaweb:latest
       container_name: miellaweb
       restart: unless-stopped
@@ -7,20 +7,20 @@ services:
          - PORT=3000
       labels:
          - 'traefik.enable=true'
-         - 'traefik.http.routers.nginx.rule=Host(`egirl.ing`) || Host(`suckmygirldi.cc`)'
-         - 'traefik.http.routers.nginx.entrypoints=http'
-         - 'traefik.http.routers.nginx.middlewares=nginx-https-redirect'
-         - 'traefik.http.middlewares.nginx-https-redirect.redirectscheme.scheme=https'
-         - 'traefik.http.routers.nginx-secure.rule=Host(`egirl.ing`) || Host(`suckmygirldi.cc`)'
-         - 'traefik.http.routers.nginx-secure.entrypoints=https'
-         - 'traefik.http.routers.nginx-secure.tls=true'
-         - 'traefik.http.routers.nginx-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.nginx-secure.tls.domains[0].sans=egirl.ing'
-         - 'traefik.http.routers.nginx-secure.tls.domains[0].main=egirl.ing'
-         - 'traefik.http.routers.nginx-secure.tls.domains[1].sans=suckmygirldi.cc'
-         - 'traefik.http.routers.nginx-secure.tls.domains[1].main=suckmygirldi.cc'
-         - 'traefik.http.routers.nginx-secure.service=nginx-node'
-         - 'traefik.http.services.nginx-node.loadbalancer.server.port=3000'
+         - 'traefik.http.routers.miellaweb.rule=Host(`egirl.ing`) || Host(`suckmygirldi.cc`)'
+         - 'traefik.http.routers.miellaweb.entrypoints=http'
+         - 'traefik.http.routers.miellaweb.middlewares=miellaweb-https-redirect'
+         - 'traefik.http.middlewares.miellaweb-https-redirect.redirectscheme.scheme=https'
+         - 'traefik.http.routers.miellaweb-secure.rule=Host(`egirl.ing`) || Host(`suckmygirldi.cc`)'
+         - 'traefik.http.routers.miellaweb-secure.entrypoints=https'
+         - 'traefik.http.routers.miellaweb-secure.tls=true'
+         - 'traefik.http.routers.miellaweb-secure.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.miellaweb-secure.tls.domains[0].sans=egirl.ing'
+         - 'traefik.http.routers.miellaweb-secure.tls.domains[0].main=egirl.ing'
+         - 'traefik.http.routers.miellaweb-secure.tls.domains[1].sans=suckmygirldi.cc'
+         - 'traefik.http.routers.miellaweb-secure.tls.domains[1].main=suckmygirldi.cc'
+         - 'traefik.http.routers.miellaweb-secure.service=miellaweb-node'
+         - 'traefik.http.services.miellaweb-node.loadbalancer.server.port=3000'
       volumes:
          - /opt/html/miellaweb:/usr/app/public
          - /opt/html/server.js:/usr/app/server.js
