@@ -10,7 +10,8 @@ services:
          - TRAEFIK_VERSION=2
          - CF_EMAIL=${CLOUDFLARE_EMAIL}
          - CF_TOKEN=${CLOUDFLARE_TOKEN}
-         - RC_TYPE=CNAME
+         - RC_TYPE=CNAME=egirl.ing
+         - TARGET_DOMAIN
          - DOMAIN1=egirl.ing
          - DOMAIN1_TARGET_DOMAIN=egirl.ing
          - DOMAIN1_ZONE_ID=${DOMAIN1_ZONE_ID}
