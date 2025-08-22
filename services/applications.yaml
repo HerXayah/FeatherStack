@@ -82,7 +82,7 @@ services:
          - 'traefik.http.services.maloja.loadbalancer.server.port=42010'
 
    uploader:
-      image: ghcr.io/diced/zipline:v3-trunk
+      image: ghcr.io/diced/zipline:latest
       container_name: uploader
       restart: unless-stopped
       environment:
