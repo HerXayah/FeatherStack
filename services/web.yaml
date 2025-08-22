@@ -7,11 +7,11 @@ services:
          - PORT=3000
       labels:
          - 'traefik.enable=true'
-         - 'traefik.http.routers.miellaweb.rule=Host(`egirl.ing`) || Host(`suckmygirldi.cc`)'
+         - 'traefik.http.routers.miellaweb.rule=Host(`egirl.ing`)'
          - 'traefik.http.routers.miellaweb.entrypoints=http'
          - 'traefik.http.routers.miellaweb.middlewares=miellaweb-https-redirect'
          - 'traefik.http.middlewares.miellaweb-https-redirect.redirectscheme.scheme=https'
-         - 'traefik.http.routers.miellaweb-secure.rule=Host(`egirl.ing`) || Host(`suckmygirldi.cc`)'
+         - 'traefik.http.routers.miellaweb-secure.rule=Host(`egirl.ing`)'
          - 'traefik.http.routers.miellaweb-secure.entrypoints=https'
          - 'traefik.http.routers.miellaweb-secure.tls=true'
          - 'traefik.http.routers.miellaweb-secure.tls.certresolver=cloudflare'

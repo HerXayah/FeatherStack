@@ -80,3 +80,43 @@ services:
          - 'traefik.http.routers.maloja-secure.tls.domains[0].main=egirl.ing'
          - 'traefik.http.routers.maloja-secure.service=maloja'
          - 'traefik.http.services.maloja.loadbalancer.server.port=42010'
+
+   uploader:
+      image: ghcr.io/diced/zipline:v3-trunk
+      container_name: uploader
+      restart: unless-stopped
+      environment:
+         - CORE_SECRET=${CORE_SECRET}
+         - CORE_DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/zipline_db
+         - FEATURES_INVITES=false
+         - FEATURES_USER_REGISTRATION=false
+         - FEATURES_ROBOTS_TXT=true
+         - MFA_TOTP_ENABLED=true
+         - MFA_TOTP_ISSUER=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
+         - WEBSITE_TITLE=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
+         - WEBSITE_SHOW_VERSION=false
+         - DATASOURCE_TYPE=s3
+         - DATASOURCE_S3_SECRET_ACCESS_KEY=${DATASOURCE_S3_SECRET_ACCESS_KEY}
+         - DATASOURCE_S3_ACCESS_KEY_ID=${DATASOURCE_S3_ACCESS_KEY_ID}
+         - DATASOURCE_S3_ENDPOINT=${DATASOURCE_S3_ENDPOINT}
+         - DATASOURCE_S3_BUCKET=${DATASOURCE_S3_BUCKET}
+         - DATASOURCE_S3_REGION=EEUR
+         - DATASOURCE_S3_FORCE_S3_PATH=false
+         - DATASOURCE_S3_USE_SSL=true
+      labels:
+         - 'traefik.enable=true'
+         - 'traefik.http.routers.uploader.rule=Host(`suckmygirldi.cc`)'
+         - 'traefik.http.routers.uploader.entrypoints=http'
+         - 'traefik.http.routers.uploader.middlewares=uploader-https-redirect'
+         - 'traefik.http.middlewares.uploader-https-redirect.redirectscheme.scheme=https'
+         - 'traefik.http.routers.uploader-secure.rule=Host(`suckmygirldi.cc`)'
+         - 'traefik.http.routers.uploader-secure.entrypoints=https'
+         - 'traefik.http.routers.uploader-secure.tls=true'
+         - 'traefik.http.routers.uploader-secure.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.uploader-secure.tls.domains[0].sans=suckmygirldi.cc'
+         - 'traefik.http.routers.uploader-secure.tls.domains[0].main=suckmygirldi.cc'
+         - 'traefik.http.routers.uploader-secure.service=uploader'
+         - 'traefik.http.services.uploader.loadbalancer.server.port=3000'
+      volumes:
+         - /opt/zipline/uploads:/zipline/uploads
+         - /opt/zipline/public:/zipline/public
