@@ -101,7 +101,7 @@ services:
          - 'traefik.http.routers.twitfix-secure.tls.domains[0].sans=suckmygirldi.cc'
          - 'traefik.http.routers.twitfix-secure.tls.domains[0].main=suckmygirldi.cc'
          - 'traefik.http.routers.twitfix-secure.service=twitfix'
-         - 'traefik.http.services.twitfix.loadbalancer.server.port=8088'
+         - 'traefik.http.services.twitfix.loadbalancer.server.port=9000'
       volumes:
          - '/opt/twittfx/twitfix.ini:/twitfix/twitfix.ini:ro'
          - '/opt/twittfx/config.json:/twitfix/config.json:ro'
