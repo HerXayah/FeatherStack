@@ -34,7 +34,7 @@ services:
          - /opt/authentik/redis:/data
 
    postgres:
-      image: postgres:15
+      image: postgres:17-alpine
       restart: unless-stopped
       environment:
          - POSTGRES_USER=${POSTGRES_USER}
