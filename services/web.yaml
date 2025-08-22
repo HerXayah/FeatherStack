@@ -17,6 +17,8 @@ services:
          - 'traefik.http.routers.nginx-secure.tls.certresolver=cloudflare'
          - 'traefik.http.routers.nginx-secure.tls.domains[0].sans=egirl.ing'
          - 'traefik.http.routers.nginx-secure.tls.domains[0].main=egirl.ing'
+         - 'traefik.http.routers.nginx-secure.tls.domains[1].sans=suckmygirldi.cc'
+         - 'traefik.http.routers.nginx-secure.tls.domains[1].main=suckmygirldi.cc'
          - 'traefik.http.routers.nginx-secure.service=nginx-node'
          - 'traefik.http.services.nginx-node.loadbalancer.server.port=3000'
       volumes:
