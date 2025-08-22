@@ -1,5 +1,3 @@
-version: '3.9'
-
 include:
    - path:
         - ./services/volumes.yaml
@@ -11,6 +9,6 @@ include:
         - ./services/security.yaml
         - ./services/applications.yaml
         - ./services/background-services.yaml
-   - env_file: ./.env
+   - env_file: ../.env
 
 services: {}
