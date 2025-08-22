@@ -1,26 +1,26 @@
 services:
-   otterwiki:
-      image: redimp/otterwiki:latest
-      container_name: otterwiki
-      user: 1000:1000
-      restart: unless-stopped
-      volumes:
-         - /opt/otterwiki/data:/app-data
-         - /opt/otterwiki/media:/app-data/repository/home/
-      labels:
-         - 'traefik.enable=true'
-         - 'traefik.http.routers.otterwiki.rule=Host(`hrt.egirl.ing`)'
-         - 'traefik.http.routers.otterwiki.entrypoints=http'
-         - 'traefik.http.routers.otterwiki.middlewares=otterwiki-https-redirect'
-         - 'traefik.http.middlewares.otterwiki-https-redirect.redirectscheme.scheme=https'
-         - 'traefik.http.routers.otterwiki-secure.rule=Host(`hrt.egirl.ing`)'
-         - 'traefik.http.routers.otterwiki-secure.entrypoints=https'
-         - 'traefik.http.routers.otterwiki-secure.tls=true'
-         - 'traefik.http.routers.otterwiki-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.otterwiki-secure.tls.domains[0].sans=hrt.egirl.ing'
-         - 'traefik.http.routers.otterwiki-secure.tls.domains[0].main=egirl.ing'
-         - 'traefik.http.routers.otterwiki-secure.service=otterwiki'
-         - 'traefik.http.services.otterwiki.loadbalancer.server.port=8080'
+   #   otterwiki:
+   #      image: redimp/otterwiki:latest
+   #      container_name: otterwiki
+   #      user: 1000:1000
+   #      restart: unless-stopped
+   #      volumes:
+   #         - /opt/otterwiki/data:/app-data
+   #         - /opt/otterwiki/media:/app-data/repository/home/
+   #      labels:
+   #         - 'traefik.enable=true'
+   #         - 'traefik.http.routers.otterwiki.rule=Host(`hrt.egirl.ing`)'
+   #         - 'traefik.http.routers.otterwiki.entrypoints=http'
+   #         - 'traefik.http.routers.otterwiki.middlewares=otterwiki-https-redirect'
+   #         - 'traefik.http.middlewares.otterwiki-https-redirect.redirectscheme.scheme=https'
+   #         - 'traefik.http.routers.otterwiki-secure.rule=Host(`hrt.egirl.ing`)'
+   #         - 'traefik.http.routers.otterwiki-secure.entrypoints=https'
+   #         - 'traefik.http.routers.otterwiki-secure.tls=true'
+   #         - 'traefik.http.routers.otterwiki-secure.tls.certresolver=cloudflare'
+   #         - 'traefik.http.routers.otterwiki-secure.tls.domains[0].sans=hrt.egirl.ing'
+   #         - 'traefik.http.routers.otterwiki-secure.tls.domains[0].main=egirl.ing'
+   #         - 'traefik.http.routers.otterwiki-secure.service=otterwiki'
+   #         - 'traefik.http.services.otterwiki.loadbalancer.server.port=8080'
 
    koito:
       image: gabehf/koito:latest
