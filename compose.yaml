@@ -9,6 +9,5 @@ include:
         - ./services/security.yaml
         - ./services/applications.yaml
         - ./services/background-services.yaml
-        - ./services/twitfx.yaml
 
 services: {}
