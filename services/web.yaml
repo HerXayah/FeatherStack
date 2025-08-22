@@ -17,7 +17,7 @@ services:
          - 'traefik.http.routers.miellaweb-secure.tls.certresolver=cloudflare'
          - 'traefik.http.routers.miellaweb-secure.tls.domains[0].sans=egirl.ing'
          - 'traefik.http.routers.miellaweb-secure.tls.domains[0].main=egirl.ing'
-         - 'traefik.http.routers.miellaweb-secure.tls.domains[1].sans=suckmygirldi.cc'
+         - 'traefik.http.routers.miellaweb-secure.tls.domains[1].sans=*.suckmygirldi.cc'
          - 'traefik.http.routers.miellaweb-secure.tls.domains[1].main=suckmygirldi.cc'
          - 'traefik.http.routers.miellaweb-secure.service=miellaweb-node'
          - 'traefik.http.services.miellaweb-node.loadbalancer.server.port=3000'
