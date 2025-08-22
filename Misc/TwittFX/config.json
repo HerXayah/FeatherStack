@@ -1,0 +1,15 @@
+{
+   "config": {
+      "appname": "Cuccer",
+      "color": "#1D543A",
+      "database": "mongodb://twitfix_db:27017/",
+      "link_cache": "db",
+      "method": "hybrid",
+      "repo": "https://github.com/dylanpdx/BetterTwitFix",
+      "table": "twittfix_db",
+      "url": "https://suckmygirldi.cc",
+      "combination_method": "local",
+      "gifConvertAPI": "local",
+      "workaroundTokens": null
+   }
+}

@@ -82,3 +82,12 @@ services:
          - 'traefik.http.routers.maloja-secure.tls.domains[0].main=egirl.ing'
          - 'traefik.http.routers.maloja-secure.service=maloja'
          - 'traefik.http.services.maloja.loadbalancer.server.port=42010'
+   twitfix:
+      image: twitfix
+      build: /root/BetterTwitFix/Dockerfile
+      container_name: twitfix_main
+      volumes:
+         - './Misc//TwittFX/twitfix.ini:/twitfix/twitfix.ini:ro'
+         - './Misc//TwittFX/config.json:/twitfix/config.json:ro'
+      depends_on:
+         - db-twittfx
