@@ -9,6 +9,6 @@ include:
         - ./services/security.yaml
         - ./services/applications.yaml
         - ./services/background-services.yaml
-   - env_file: ../.env
+   - env_file: .env
 
 services: {}
