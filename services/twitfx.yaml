@@ -1,0 +1,24 @@
+services:
+   twitfix:
+      image: twitfix
+      build: /root/FxEmbed/
+      user: 1000:1000
+      container_name: twitfix
+      labels:
+         - 'traefik.enable=true'
+         - 'traefik.http.routers.twitfix.entrypoints=http'
+         - 'traefik.http.routers.twitfix.rule=Host(`suckmygirldi.cc`) || Host(`d.suckmygirldi.cc`) || Host(`dl.suckmygirldi.cc`) || Host(`t.suckmygirldi.cc`) || Host(`i.suckmygirldi.cc`) || Host(`g.suckmygirldi.cc`) || Host(`m.suckmygirldi.cc`) || Host(`o.suckmygirldi.cc`) || Host(`api.suckmygirldi.cc`)'
+         - 'traefik.http.middlewares.twitfix-https-redirect.redirectscheme.scheme=https'
+         - 'traefik.http.routers.twitfix.middlewares=twitfix-https-redirect'
+         - 'traefik.http.routers.twitfix-secure.entrypoints=https'
+         - 'traefik.http.routers.twitfix-secure.rule=Host(`suckmygirldi.cc`) || Host(`d.suckmygirldi.cc`) || Host(`dl.suckmygirldi.cc`) || Host(`t.suckmygirldi.cc`) || Host(`i.suckmygirldi.cc`) || Host(`g.suckmygirldi.cc`) || Host(`m.suckmygirldi.cc`) || Host(`o.suckmygirldi.cc`) || Host(`api.suckmygirldi.cc`)'
+         - 'traefik.http.routers.twitfix-secure.tls=true'
+         - 'traefik.http.routers.twitfix-secure.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.twitfix-secure.tls.domains[0].sans=suckmygirldi.cc'
+         - 'traefik.http.routers.twitfix-secure.tls.domains[0].main=suckmygirldi.cc'
+         - 'traefik.http.routers.twitfix-secure.service=twitfix'
+         - 'traefik.http.services.twitfix.loadbalancer.server.port='
+      volumes:
+         - '/opt/twittfx/bradning.json:/usr/app/bradning.json'
+         - '/opt/twittfx/.env:/usr/app/.env'
+         - /opt/twittfx/wrangler.toml:/user/app/wrangler.toml

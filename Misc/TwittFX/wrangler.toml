@@ -1,0 +1,20 @@
+name = "fixtweet"
+account_id = "464bec7ca336b026e644e2a844cfd54d"
+main = "./dist/worker.js"
+compatibility_date = "2024-11-14"
+send_metrics = false
+
+routes = [
+  { pattern = "suckmygirldi.cc", zone_id = "07e0bda166f93e8630dcc1dc3ecbb0ca", custom_domain = true },
+  { pattern = "d.suckmygirldi.cc", zone_id = "07e0bda166f93e8630dcc1dc3ecbb0ca", custom_domain = true  },
+  { pattern = "dl.suckmygirldi.cc", zone_id = "07e0bda166f93e8630dcc1dc3ecbb0ca", custom_domain = true  },
+  { pattern = "t.suckmygirldi.cc", zone_id = "07e0bda166f93e8630dcc1dc3ecbb0ca", custom_domain = true  },
+  { pattern = "i.suckmygirldi.cc", zone_id = "07e0bda166f93e8630dcc1dc3ecbb0ca", custom_domain = true  },
+  { pattern = "g.suckmygirldi.cc", zone_id = "07e0bda166f93e8630dcc1dc3ecbb0ca", custom_domain = true  },
+  { pattern = "m.suckmygirldi.cc", zone_id = "07e0bda166f93e8630dcc1dc3ecbb0ca", custom_domain = true  },
+  { pattern = "o.suckmygirldi.cc", zone_id = "07e0bda166f93e8630dcc1dc3ecbb0ca", custom_domain = true  },
+  { pattern = "api.suckmygirldi.cc", zone_id = "07e0bda166f93e8630dcc1dc3ecbb0ca", custom_domain = true  },
+]
+
+[build]
+command = "npm run build"

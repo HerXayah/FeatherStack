@@ -60,8 +60,3 @@ services:
          PGID: 1000
       volumes:
          - /opt/koito/db-data:/var/lib/postgresql/data
-   db-twittfx:
-      image: mongo:latest
-      container_name: twitfix_db
-      volumes:
-         - '/opt/twittfx/db:/data/db'

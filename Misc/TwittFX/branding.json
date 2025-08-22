@@ -1,0 +1,22 @@
+{
+   "zones": [
+      {
+         "name": "Cuccer",
+         "default": true,
+         "domains": ["suckmygirldi.cc"],
+         "provider": "twitter",
+         "favicon": "https://abs.twimg.com/favicons/twitter.2.ico",
+         "redirect": "https://github.com/FxEmbed/FxEmbed",
+         "color": "#3A82ff",
+         "activityIcons": {
+            "default": "https://assets.fxembed.com/logos/fxtwitter-pride32.png",
+            "svg": "https://assets.fxembed.com/logos/fxtwitter.svg",
+            "16": "https://assets.fxembed.com/logos/fxtwitter-pride16.png",
+            "24": "https://assets.fxembed.com/logos/fxtwitter-pride24.png",
+            "32": "https://assets.fxembed.com/logos/fxtwitter-pride32.png",
+            "48": "https://assets.fxembed.com/logos/fxtwitter-pride48.png",
+            "64": "https://assets.fxembed.com/logos/fxtwitter-pride64.png"
+         }
+      }
+   ]
+}
