@@ -1,36 +1,37 @@
-traefik:
-   image: traefik:latest
-   restart: unless-stopped
-   container_name: traefik
-   ports:
-      - '80:80'
-      - '8080:8080'
-      - '443:443'
-   volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /etc/localtime:/etc/localtime:ro
-      - /opt/traefik/traefik.yml:/traefik.yml:ro
-      - /opt/traefik/dynamic_conf.yml:/dynamic_conf.yml:ro
-      - /opt/traefik/acme.json:/acme.json
-      - /opt/traefik/config.yml:/config.yml:ro
-      - traefik_data:/var/log/traefik/
-   environment:
-      - TZ=Europe/Berlin
-      - CLOUDFLARE_EMAIL=${CLOUDFLARE_EMAIL}
-      - CLOUDFLARE_API_KEY=${CLOUDFLARE_TOKEN}
-      - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_TOKEN}
-   labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.traefik.entrypoints=http'
-      - 'traefik.http.routers.traefik.rule=Host(`traefik.egirl.ing`)'
-      - 'traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https'
-      - 'traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https'
-      - 'traefik.http.routers.traefik.middlewares=traefik-https-redirect'
-      - 'traefik.http.routers.traefik-secure.entrypoints=https'
-      - 'traefik.http.routers.traefik-secure.rule=Host(`traefik.egirl.ing`)'
-      - 'traefik.http.routers.traefik-secure.middlewares=authentik@file'
-      - 'traefik.http.routers.traefik-secure.tls=true'
-      - 'traefik.http.routers.traefik-secure.tls.certresolver=cloudflare'
-      - 'traefik.http.routers.traefik-secure.tls.domains[0].sans=traefik.egirl.ing'
-      - 'traefik.http.routers.traefik-secure.tls.domains[0].main=egirl.ing'
-      - 'traefik.http.routers.traefik-secure.service=api@internal'
+services:
+   traefik:
+      image: traefik:latest
+      restart: unless-stopped
+      container_name: traefik
+      ports:
+         - '80:80'
+         - '8080:8080'
+         - '443:443'
+      volumes:
+         - /var/run/docker.sock:/var/run/docker.sock:ro
+         - /etc/localtime:/etc/localtime:ro
+         - /opt/traefik/traefik.yml:/traefik.yml:ro
+         - /opt/traefik/dynamic_conf.yml:/dynamic_conf.yml:ro
+         - /opt/traefik/acme.json:/acme.json
+         - /opt/traefik/config.yml:/config.yml:ro
+         - traefik_data:/var/log/traefik/
+      environment:
+         - TZ=Europe/Berlin
+         - CLOUDFLARE_EMAIL=${CLOUDFLARE_EMAIL}
+         - CLOUDFLARE_API_KEY=${CLOUDFLARE_TOKEN}
+         - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_TOKEN}
+      labels:
+         - 'traefik.enable=true'
+         - 'traefik.http.routers.traefik.entrypoints=http'
+         - 'traefik.http.routers.traefik.rule=Host(`traefik.egirl.ing`)'
+         - 'traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https'
+         - 'traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https'
+         - 'traefik.http.routers.traefik.middlewares=traefik-https-redirect'
+         - 'traefik.http.routers.traefik-secure.entrypoints=https'
+         - 'traefik.http.routers.traefik-secure.rule=Host(`traefik.egirl.ing`)'
+         - 'traefik.http.routers.traefik-secure.middlewares=authentik@file'
+         - 'traefik.http.routers.traefik-secure.tls=true'
+         - 'traefik.http.routers.traefik-secure.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.traefik-secure.tls.domains[0].sans=traefik.egirl.ing'
+         - 'traefik.http.routers.traefik-secure.tls.domains[0].main=egirl.ing'
+         - 'traefik.http.routers.traefik-secure.service=api@internal'

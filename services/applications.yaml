@@ -1,83 +1,84 @@
-otterwiki:
-   image: redimp/otterwiki:latest
-   container_name: otterwiki
-   restart: unless-stopped
-   volumes:
-      - /opt/otterwiki/data:/app-data
-      - /opt/otterwiki/media:/app-data/repository/home/
-   labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.otterwiki.rule=Host(`hrt.egirl.ing`)'
-      - 'traefik.http.routers.otterwiki.entrypoints=http'
-      - 'traefik.http.routers.otterwiki.middlewares=otterwiki-https-redirect'
-      - 'traefik.http.middlewares.otterwiki-https-redirect.redirectscheme.scheme=https'
-      - 'traefik.http.routers.otterwiki-secure.rule=Host(`hrt.egirl.ing`)'
-      - 'traefik.http.routers.otterwiki-secure.entrypoints=https'
-      - 'traefik.http.routers.otterwiki-secure.tls=true'
-      - 'traefik.http.routers.otterwiki-secure.tls.certresolver=cloudflare'
-      - 'traefik.http.routers.otterwiki-secure.tls.domains[0].sans=hrt.egirl.ing'
-      - 'traefik.http.routers.otterwiki-secure.tls.domains[0].main=egirl.ing'
-      - 'traefik.http.routers.otterwiki-secure.service=otterwiki'
-      - 'traefik.http.services.otterwiki.loadbalancer.server.port=8080'
+services:
+   otterwiki:
+      image: redimp/otterwiki:latest
+      container_name: otterwiki
+      restart: unless-stopped
+      volumes:
+         - /opt/otterwiki/data:/app-data
+         - /opt/otterwiki/media:/app-data/repository/home/
+      labels:
+         - 'traefik.enable=true'
+         - 'traefik.http.routers.otterwiki.rule=Host(`hrt.egirl.ing`)'
+         - 'traefik.http.routers.otterwiki.entrypoints=http'
+         - 'traefik.http.routers.otterwiki.middlewares=otterwiki-https-redirect'
+         - 'traefik.http.middlewares.otterwiki-https-redirect.redirectscheme.scheme=https'
+         - 'traefik.http.routers.otterwiki-secure.rule=Host(`hrt.egirl.ing`)'
+         - 'traefik.http.routers.otterwiki-secure.entrypoints=https'
+         - 'traefik.http.routers.otterwiki-secure.tls=true'
+         - 'traefik.http.routers.otterwiki-secure.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.otterwiki-secure.tls.domains[0].sans=hrt.egirl.ing'
+         - 'traefik.http.routers.otterwiki-secure.tls.domains[0].main=egirl.ing'
+         - 'traefik.http.routers.otterwiki-secure.service=otterwiki'
+         - 'traefik.http.services.otterwiki.loadbalancer.server.port=8080'
 
-koito:
-   image: gabehf/koito:latest
-   container_name: koito
-   depends_on:
-      - db-koito
-   environment:
-      - KOITO_DATABASE_URL=postgres://postgres:${KOITO_POSTGRES}@db-koito:5432/koitodb
-      - KOITO_ALLOWED_HOSTS=*
-      - PUID=1000
-      - PGID=1000
-   volumes:
-      - /opt/koito/koito-data:/etc/koito
-   restart: unless-stopped
-   labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.koito.rule=Host(`koito.egirl.ing`)'
-      - 'traefik.http.routers.koito.entrypoints=http'
-      - 'traefik.http.routers.koito.tls.certresolver=cloudflare'
-      - 'traefik.http.routers.koito.middlewares=koito-https-redirect'
-      - 'traefik.http.routers.koito-secure.entrypoints=https'
-      - 'traefik.http.routers.koito-secure.rule=Host(`koito.egirl.ing`)'
-      - 'traefik.http.routers.koito-secure.tls=true'
-      - 'traefik.http.routers.koito-secure.tls.domains[0].sans=koito.egirl.ing'
-      - 'traefik.http.routers.koito-secure.tls.domains[0].main=egirl.ing'
-      - 'traefik.http.routers.koito-secure.service=koito'
-      - 'traefik.http.services.koito.loadbalancer.server.port=4110'
+   koito:
+      image: gabehf/koito:latest
+      container_name: koito
+      depends_on:
+         - db-koito
+      environment:
+         - KOITO_DATABASE_URL=postgres://postgres:${KOITO_POSTGRES}@db-koito:5432/koitodb
+         - KOITO_ALLOWED_HOSTS=*
+         - PUID=1000
+         - PGID=1000
+      volumes:
+         - /opt/koito/koito-data:/etc/koito
+      restart: unless-stopped
+      labels:
+         - 'traefik.enable=true'
+         - 'traefik.http.routers.koito.rule=Host(`koito.egirl.ing`)'
+         - 'traefik.http.routers.koito.entrypoints=http'
+         - 'traefik.http.routers.koito.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.koito.middlewares=koito-https-redirect'
+         - 'traefik.http.routers.koito-secure.entrypoints=https'
+         - 'traefik.http.routers.koito-secure.rule=Host(`koito.egirl.ing`)'
+         - 'traefik.http.routers.koito-secure.tls=true'
+         - 'traefik.http.routers.koito-secure.tls.domains[0].sans=koito.egirl.ing'
+         - 'traefik.http.routers.koito-secure.tls.domains[0].main=egirl.ing'
+         - 'traefik.http.routers.koito-secure.service=koito'
+         - 'traefik.http.services.koito.loadbalancer.server.port=4110'
 
-maloja:
-   image: krateng/maloja:3.2.2
-   container_name: maloja
-   restart: unless-stopped
-   entrypoint: maloja run
-   working_dir: /usr/src/app
-   volumes:
-      - /opt/maloja/:/mljdata
-   environment:
-      - MALOJA_DATA_DIRECTORY=/mljdata
-      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-      - MALOJA_SKIP_SETUP=true
-      - PYTHONUNBUFFERED=1
-      - PUID=1000
-      - PGID=1000
-      - S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0
-      - S6_VERBOSITY=1
-      - S6_STAGE2_HOOK=/docker-mods
-      - VIRTUAL_ENV=/lsiopy
-      - MALOJA_TIMEZONE=Europe/Berlin
-   labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.maloja.entrypoints=http'
-      - 'traefik.http.routers.maloja.rule=Host(`scrobble.egirl.ing`)'
-      - 'traefik.http.middlewares.maloja-https-redirect.redirectscheme.scheme=https'
-      - 'traefik.http.routers.maloja.middlewares=maloja-https-redirect'
-      - 'traefik.http.routers.maloja-secure.entrypoints=https'
-      - 'traefik.http.routers.maloja-secure.rule=Host(`scrobble.egirl.ing`)'
-      - 'traefik.http.routers.maloja-secure.tls=true'
-      - 'traefik.http.routers.maloja-secure.tls.certresolver=cloudflare'
-      - 'traefik.http.routers.maloja-secure.tls.domains[0].sans=scrobble.egirl.ing'
-      - 'traefik.http.routers.maloja-secure.tls.domains[0].main=egirl.ing'
-      - 'traefik.http.routers.maloja-secure.service=maloja'
-      - 'traefik.http.services.maloja.loadbalancer.server.port=42010'
+   maloja:
+      image: krateng/maloja:3.2.2
+      container_name: maloja
+      restart: unless-stopped
+      entrypoint: maloja run
+      working_dir: /usr/src/app
+      volumes:
+         - /opt/maloja/:/mljdata
+      environment:
+         - MALOJA_DATA_DIRECTORY=/mljdata
+         - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+         - MALOJA_SKIP_SETUP=true
+         - PYTHONUNBUFFERED=1
+         - PUID=1000
+         - PGID=1000
+         - S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0
+         - S6_VERBOSITY=1
+         - S6_STAGE2_HOOK=/docker-mods
+         - VIRTUAL_ENV=/lsiopy
+         - MALOJA_TIMEZONE=Europe/Berlin
+      labels:
+         - 'traefik.enable=true'
+         - 'traefik.http.routers.maloja.entrypoints=http'
+         - 'traefik.http.routers.maloja.rule=Host(`scrobble.egirl.ing`)'
+         - 'traefik.http.middlewares.maloja-https-redirect.redirectscheme.scheme=https'
+         - 'traefik.http.routers.maloja.middlewares=maloja-https-redirect'
+         - 'traefik.http.routers.maloja-secure.entrypoints=https'
+         - 'traefik.http.routers.maloja-secure.rule=Host(`scrobble.egirl.ing`)'
+         - 'traefik.http.routers.maloja-secure.tls=true'
+         - 'traefik.http.routers.maloja-secure.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.maloja-secure.tls.domains[0].sans=scrobble.egirl.ing'
+         - 'traefik.http.routers.maloja-secure.tls.domains[0].main=egirl.ing'
+         - 'traefik.http.routers.maloja-secure.service=maloja'
+         - 'traefik.http.services.maloja.loadbalancer.server.port=42010'

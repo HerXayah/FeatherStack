@@ -1,59 +1,60 @@
-server:
-   image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2024.8.3}
-   restart: unless-stopped
-   expose:
-      - 9000
-   container_name: authentik-server
-   command: server
-   labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.egirl.rule=Host(`authentik.egirl.ing`)'
-      - 'traefik.http.routers.egirl.entrypoints=http'
-      - 'traefik.http.routers.egirl.tls.certresolver=cloudflare'
-      - 'traefik.http.routers.egirl.tls.domains[0].sans=authentik.egirl.ing'
-      - 'traefik.http.routers.egirl.tls.domains[0].main=egirl.ing'
-      - 'traefik.http.routers.egirl-secure.rule=Host(`authentik.egirl.ing`)'
-      - 'traefik.http.routers.egirl-secure.entrypoints=https'
-      - 'traefik.http.routers.egirl-secure.tls=true'
-      - 'traefik.http.routers.egirl-secure.tls.certresolver=cloudflare'
-      - 'traefik.http.routers.egirl-secure.tls.domains[0].sans=authentik.egirl.ing'
-      - 'traefik.http.routers.egirl-secure.tls.domains[0].main=egirl.ing'
-      - 'traefik.http.routers.egirl-secure.service=authentik'
-      - 'traefik.http.services.authentik.loadbalancer.server.port=9000'
-   env_file:
-      - .env
-   environment:
-      AUTHENTIK_REDIS__HOST: authentikredis
-      AUTHENTIK_POSTGRESQL__HOST: authentikpostgres
-      AUTHENTIK_POSTGRESQL__USER: ${A_PG_USR}
-      AUTHENTIK_POSTGRESQL__NAME: ${A_PG_DB}
-      AUTHENTIK_POSTGRESQL__PASSWORD: ${A_PG_PWS}
-   volumes:
-      - /opt/authentik/media:/media
-      - /opt/authentik/custom-templates:/templates
-   depends_on:
-      - authentikpostgres
-      - authentikredis
-      
-worker:
-   image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2024.8.3}
-   restart: unless-stopped
-   container_name: authentik-worker
-   command: worker
-   env_file:
-      - .env
-   environment:
-      AUTHENTIK_REDIS__HOST: authentikredis
-      AUTHENTIK_POSTGRESQL__HOST: authentikpostgres
-      AUTHENTIK_POSTGRESQL__USER: ${A_PG_USR}
-      AUTHENTIK_POSTGRESQL__NAME: ${A_PG_DB}
-      AUTHENTIK_POSTGRESQL__PASSWORD: ${A_PG_PWS}
-   user: root
-   volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /opt/authentik/media:/media
-      - /opt/authentik/certs:/certs
-      - /opt/authentik/custom-templates:/templates
-   depends_on:
-      - authentikpostgres
-      - authentikredis
+services:
+   server:
+      image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2024.8.3}
+      restart: unless-stopped
+      expose:
+         - 9000
+      container_name: authentik-server
+      command: server
+      labels:
+         - 'traefik.enable=true'
+         - 'traefik.http.routers.egirl.rule=Host(`authentik.egirl.ing`)'
+         - 'traefik.http.routers.egirl.entrypoints=http'
+         - 'traefik.http.routers.egirl.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.egirl.tls.domains[0].sans=authentik.egirl.ing'
+         - 'traefik.http.routers.egirl.tls.domains[0].main=egirl.ing'
+         - 'traefik.http.routers.egirl-secure.rule=Host(`authentik.egirl.ing`)'
+         - 'traefik.http.routers.egirl-secure.entrypoints=https'
+         - 'traefik.http.routers.egirl-secure.tls=true'
+         - 'traefik.http.routers.egirl-secure.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.egirl-secure.tls.domains[0].sans=authentik.egirl.ing'
+         - 'traefik.http.routers.egirl-secure.tls.domains[0].main=egirl.ing'
+         - 'traefik.http.routers.egirl-secure.service=authentik'
+         - 'traefik.http.services.authentik.loadbalancer.server.port=9000'
+      env_file:
+         - .env
+      environment:
+         AUTHENTIK_REDIS__HOST: authentikredis
+         AUTHENTIK_POSTGRESQL__HOST: authentikpostgres
+         AUTHENTIK_POSTGRESQL__USER: ${A_PG_USR}
+         AUTHENTIK_POSTGRESQL__NAME: ${A_PG_DB}
+         AUTHENTIK_POSTGRESQL__PASSWORD: ${A_PG_PWS}
+      volumes:
+         - /opt/authentik/media:/media
+         - /opt/authentik/custom-templates:/templates
+      depends_on:
+         - authentikpostgres
+         - authentikredis
+
+   worker:
+      image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2024.8.3}
+      restart: unless-stopped
+      container_name: authentik-worker
+      command: worker
+      env_file:
+         - .env
+      environment:
+         AUTHENTIK_REDIS__HOST: authentikredis
+         AUTHENTIK_POSTGRESQL__HOST: authentikpostgres
+         AUTHENTIK_POSTGRESQL__USER: ${A_PG_USR}
+         AUTHENTIK_POSTGRESQL__NAME: ${A_PG_DB}
+         AUTHENTIK_POSTGRESQL__PASSWORD: ${A_PG_PWS}
+      user: root
+      volumes:
+         - /var/run/docker.sock:/var/run/docker.sock
+         - /opt/authentik/media:/media
+         - /opt/authentik/certs:/certs
+         - /opt/authentik/custom-templates:/templates
+      depends_on:
+         - authentikpostgres
+         - authentikredis

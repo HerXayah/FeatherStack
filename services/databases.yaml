@@ -1,60 +1,61 @@
-authentikpostgres:
-   image: docker.io/library/postgres:16-alpine
-   container_name: authentik-postgres
-   restart: unless-stopped
-   healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}']
-      start_period: 20s
-      interval: 30s
-      retries: 5
-      timeout: 5s
-   env_file:
-      - .env
-   volumes:
-      - authentik_database:/var/lib/postgresql/data
-   environment:
-      POSTGRES_PASSWORD: ${A_PG_PWS}
-      POSTGRES_USER: ${A_PG_USR}
-      POSTGRES_DB: ${A_PG_DB}
+services:
+   authentikpostgres:
+      image: docker.io/library/postgres:16-alpine
+      container_name: authentik-postgres
+      restart: unless-stopped
+      healthcheck:
+         test: ['CMD-SHELL', 'pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}']
+         start_period: 20s
+         interval: 30s
+         retries: 5
+         timeout: 5s
+      env_file:
+         - .env
+      volumes:
+         - authentik_database:/var/lib/postgresql/data
+      environment:
+         POSTGRES_PASSWORD: ${A_PG_PWS}
+         POSTGRES_USER: ${A_PG_USR}
+         POSTGRES_DB: ${A_PG_DB}
 
-authentikredis:
-   image: docker.io/library/redis:alpine
-   container_name: authentik-redis
-   command: --save 60 1 --loglevel warning
-   restart: unless-stopped
-   healthcheck:
-      test: ['CMD-SHELL', 'redis-cli ping | grep PONG']
-      start_period: 20s
-      interval: 30s
-      retries: 5
-      timeout: 3s
-   volumes:
-      - /opt/authentik/redis:/data
+   authentikredis:
+      image: docker.io/library/redis:alpine
+      container_name: authentik-redis
+      command: --save 60 1 --loglevel warning
+      restart: unless-stopped
+      healthcheck:
+         test: ['CMD-SHELL', 'redis-cli ping | grep PONG']
+         start_period: 20s
+         interval: 30s
+         retries: 5
+         timeout: 3s
+      volumes:
+         - /opt/authentik/redis:/data
 
-postgres:
-   image: postgres:15
-   restart: unless-stopped
-   environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DATABASE=zipline_db
-   volumes:
-      - /opt/postgresZipline/:/var/lib/postgresql/data
-   healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U postgres']
-      interval: 10s
-      timeout: 5s
-      retries: 5
+   postgres:
+      image: postgres:15
+      restart: unless-stopped
+      environment:
+         - POSTGRES_USER=${POSTGRES_USER}
+         - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+         - POSTGRES_DATABASE=zipline_db
+      volumes:
+         - /opt/postgresZipline/:/var/lib/postgresql/data
+      healthcheck:
+         test: ['CMD-SHELL', 'pg_isready -U postgres']
+         interval: 10s
+         timeout: 5s
+         retries: 5
 
-db-koito:
-   image: postgres:16
-   container_name: db-koito
-   restart: unless-stopped
-   environment:
-      POSTGRES_DB: koitodb
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ${KOITO_POSTGRES}
-      PUID: 1000
-      PGID: 1000
-   volumes:
-      - /opt/koito/db-data:/var/lib/postgresql/data
+   db-koito:
+      image: postgres:16
+      container_name: db-koito
+      restart: unless-stopped
+      environment:
+         POSTGRES_DB: koitodb
+         POSTGRES_USER: postgres
+         POSTGRES_PASSWORD: ${KOITO_POSTGRES}
+         PUID: 1000
+         PGID: 1000
+      volumes:
+         - /opt/koito/db-data:/var/lib/postgresql/data
