@@ -87,7 +87,7 @@ services:
       image: twitfix
       build: /root/BetterTwitFix/
       user: 1000:1000
-      container_name: twitfix_main
+      container_name: twitfix
       labels:
          - 'traefik.enable=true'
          - 'traefik.http.routers.twitfix.entrypoints=http'
