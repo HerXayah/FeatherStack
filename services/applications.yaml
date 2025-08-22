@@ -51,7 +51,6 @@ services:
    maloja:
       image: krateng/maloja:latest
       container_name: maloja
-      user: 1000:1000
       restart: unless-stopped
       volumes:
          - /opt/maloja/:/mljdata
