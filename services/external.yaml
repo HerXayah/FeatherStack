@@ -16,6 +16,11 @@ cf-companion:
       - DOMAIN3_ACME=true
       - DOMAIN3_ACME_DNS_PROVIDER=cloudflare
       - DOMAIN3_PROXIED=TRUE
+      - DOMAIN1=egirl.ing
+      - DOMAIN1_ZONE_ID=${DOMAIN1_ZONE_ID}
+      - DOMAIN1_ACME=true
+      - DOMAIN1_ACME_DNS_PROVIDER=cloudflare
+      - DOMAIN1_PROXIED=TRUE
 
 crowdsec-cloudflare-bouncer:
    image: crowdsecurity/cloudflare-bouncer:latest
