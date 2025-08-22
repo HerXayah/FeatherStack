@@ -85,6 +85,8 @@ services:
    twitfix:
       image: twitfix
       build: /root/BetterTwitFix/
+      UID: 1000
+      GUID: 1000
       container_name: twitfix_main
       labels:
          - 'traefik.enable=true'
