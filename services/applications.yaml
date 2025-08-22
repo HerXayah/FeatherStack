@@ -87,7 +87,7 @@ services:
       restart: unless-stopped
       environment:
          - CORE_SECRET=${CORE_SECRET}
-         - CORE_DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/zipline_db
+         - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/zipline_db
          - FEATURES_INVITES=false
          - FEATURES_USER_REGISTRATION=false
          - FEATURES_ROBOTS_TXT=true
@@ -95,14 +95,13 @@ services:
          - MFA_TOTP_ISSUER=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
          - WEBSITE_TITLE=𝕱𝖊𝖆𝖙𝖍𝖊𝖗𝖘
          - WEBSITE_SHOW_VERSION=false
-         #- DATASOURCE_TYPE=none
-         #- DATASOURCE_S3_SECRET_ACCESS_KEY=${DATASOURCE_S3_SECRET_ACCESS_KEY}
-         #- DATASOURCE_S3_ACCESS_KEY_ID=${DATASOURCE_S3_ACCESS_KEY_ID}
-         #- DATASOURCE_S3_ENDPOINT=${DATASOURCE_S3_ENDPOINT}
-         #- DATASOURCE_S3_BUCKET=${DATASOURCE_S3_BUCKET}
-         #- DATASOURCE_S3_REGION=EEUR
-         #- DATASOURCE_S3_FORCE_S3_PATH=false
-         #- DATASOURCE_S3_USE_SSL=true
+         - DATASOURCE_TYPE=s3
+         - DATASOURCE_S3_SECRET_ACCESS_KEY=${DATASOURCE_S3_SECRET_ACCESS_KEY}
+         - DATASOURCE_S3_ACCESS_KEY_ID=${DATASOURCE_S3_ACCESS_KEY_ID}
+         - DATASOURCE_S3_ENDPOINT=${DATASOURCE_S3_ENDPOINT}
+         - DATASOURCE_S3_BUCKET=${DATASOURCE_S3_BUCKET}
+         - DATASOURCE_S3_REGION=EEUR
+         - DATASOURCE_S3_FORCE_PATH_STYLE=false
       labels:
          - 'traefik.enable=true'
          - 'traefik.http.routers.uploader.rule=Host(`suckmygirldi.cc`)'
