@@ -59,7 +59,7 @@ services:
          - /opt/maloja/:/mljdata
       environment:
          - MALOJA_DATA_DIRECTORY=/mljdata
-         - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/src/app
+         #         - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/src/app
          - MALOJA_SKIP_SETUP=true
          - PYTHONUNBUFFERED=1
          - PUID=1000
