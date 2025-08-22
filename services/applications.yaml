@@ -84,7 +84,7 @@ services:
          - 'traefik.http.services.maloja.loadbalancer.server.port=42010'
    twitfix:
       image: twitfix
-      build: /root/BetterTwitFix/Dockerfile
+      build: /root/BetterTwitFix/
       container_name: twitfix_main
       labels:
          - 'traefik.enable=true'
