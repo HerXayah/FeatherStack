@@ -2,6 +2,7 @@ services:
    otterwiki:
       image: redimp/otterwiki:latest
       container_name: otterwiki
+      user: 1000:1000
       restart: unless-stopped
       volumes:
          - /opt/otterwiki/data:/app-data
@@ -24,13 +25,12 @@ services:
    koito:
       image: gabehf/koito:latest
       container_name: koito
+      user: 1000:1000
       depends_on:
          - db-koito
       environment:
          - KOITO_DATABASE_URL=postgres://postgres:${KOITO_POSTGRES}@db-koito:5432/koitodb
          - KOITO_ALLOWED_HOSTS=*
-         - PUID=1000
-         - PGID=1000
       volumes:
          - /opt/koito/koito-data:/etc/koito
       restart: unless-stopped
@@ -51,6 +51,7 @@ services:
    maloja:
       image: krateng/maloja:3.2.2
       container_name: maloja
+      user: 1000:1000
       restart: unless-stopped
       entrypoint: maloja run
       working_dir: /usr/src/app
