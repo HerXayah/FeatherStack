@@ -101,7 +101,7 @@ services:
          - 'traefik.http.routers.twitfix-secure.service=twitfix'
          - 'traefik.http.services.twitfix.loadbalancer.server.port=8088'
       volumes:
-         - './Misc//TwittFX/twitfix.ini:/twitfix/twitfix.ini:ro'
-         - './Misc//TwittFX/config.json:/twitfix/config.json:ro'
+         - '/opt/twittfx/twitfix.ini:/twitfix/twitfix.ini:ro'
+         - '/opt/twittfx/config.json:/twitfix/config.json:ro'
       depends_on:
          - db-twittfx
