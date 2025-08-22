@@ -49,17 +49,15 @@ services:
          - 'traefik.http.services.koito.loadbalancer.server.port=4110'
 
    maloja:
-      image: krateng/maloja:latest
+      image: krateng/maloja:3.2.2
       container_name: maloja
       user: 1000:1000
       restart: unless-stopped
-      entrypoint: maloja run
-      working_dir: /usr/src/app
       volumes:
          - /opt/maloja/:/mljdata
       environment:
          - MALOJA_DATA_DIRECTORY=/mljdata
-         #         - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/src/app
+         - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
          - MALOJA_SKIP_SETUP=true
          - PYTHONUNBUFFERED=1
          - PUID=1000
