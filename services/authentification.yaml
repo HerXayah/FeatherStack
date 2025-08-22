@@ -21,6 +21,8 @@ services:
          - 'traefik.http.routers.egirl-secure.tls.domains[0].main=egirl.ing'
          - 'traefik.http.routers.egirl-secure.service=authentik'
          - 'traefik.http.services.authentik.loadbalancer.server.port=9000'
+      env_file:
+         - .env
       environment:
          AUTHENTIK_REDIS__HOST: authentikredis
          AUTHENTIK_POSTGRESQL__HOST: authentikpostgres
