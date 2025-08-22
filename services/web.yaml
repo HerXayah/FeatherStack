@@ -7,11 +7,11 @@ services:
          - PORT=3000
       labels:
          - 'traefik.enable=true'
-         - 'traefik.http.routers.nginx.rule=Host(`egirl.ing`)'
+         - 'traefik.http.routers.nginx.rule=Host(`egirl.ing`) || Host(`suckmygirldi.cc`)'
          - 'traefik.http.routers.nginx.entrypoints=http'
          - 'traefik.http.routers.nginx.middlewares=nginx-https-redirect'
          - 'traefik.http.middlewares.nginx-https-redirect.redirectscheme.scheme=https'
-         - 'traefik.http.routers.nginx-secure.rule=Host(`egirl.ing`)'
+         - 'traefik.http.routers.nginx-secure.rule=Host(`egirl.ing`) || Host(`suckmygirldi.cc`)'
          - 'traefik.http.routers.nginx-secure.entrypoints=https'
          - 'traefik.http.routers.nginx-secure.tls=true'
          - 'traefik.http.routers.nginx-secure.tls.certresolver=cloudflare'
