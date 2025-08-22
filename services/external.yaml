@@ -1,0 +1,28 @@
+cf-companion:
+   container_name: cf-companion
+   restart: unless-stopped
+   image: tiredofit/traefik-cloudflare-companion:latest
+   volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+   environment:
+      - TZ=Europe/Berlin
+      - TRAEFIK_VERSION=2
+      - CF_EMAIL=${CLOUDFLARE_EMAIL}
+      - CF_TOKEN=${CLOUDFLARE_TOKEN}
+      - RC_TYPE=CNAME
+      - TARGET_DOMAIN=egirl.ing
+      - DOMAIN3=egirl.ing
+      - DOMAIN3_ZONE_ID=${DOMAIN3_ZONE_ID}
+      - DOMAIN3_ACME=true
+      - DOMAIN3_ACME_DNS_PROVIDER=cloudflare
+      - DOMAIN3_PROXIED=TRUE
+
+crowdsec-cloudflare-bouncer:
+   image: crowdsecurity/cloudflare-bouncer:latest
+   container_name: crowdsec-cloudflare-bouncer
+   restart: unless-stopped
+   volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /opt/CFBouncer/crowdsec-cloudflare-bouncer.yaml:/etc/crowdsec/bouncers/crowdsec-cloudflare-bouncer.yaml:ro
+      - /var/log/crowdsec-cloudflare-bouncer:/var/log/

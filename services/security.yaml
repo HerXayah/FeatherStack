@@ -1,0 +1,57 @@
+endlessh:
+   image: shizunge/endlessh-go:latest
+   container_name: endlessh
+   command:
+      - -port=22
+   restart: unless-stopped
+   ports:
+      - '22:22'
+   labels:
+      - 'traefik.enable=false'
+watchtower:
+   restart: unless-stopped
+   image: containrrr/watchtower:latest
+   command:
+      - --schedule=0 0 */6 * * *
+      - --cleanup=true
+   container_name: watchtower
+   environment:
+      - WATCHTOWER_NOTIFICATIONS=shoutrrr
+      - WATCHTOWER_NOTIFICATION_URL=${DISCORD_WATCHTOWERR}
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+   volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+   labels:
+      - 'traefik.enable=false'
+
+crowdsec:
+   image: crowdsecurity/crowdsec:latest
+   container_name: crowdsec
+   restart: unless-stopped
+   environment:
+      GID: '${GID-1000}'
+      COLLECTIONS: 'crowdsecurity/linux crowdsecurity/traefik crowdsecurity/http-cve crowdsecurity/whitelist-good-actors crowdsecurity/sshd crowdsecurity/nginx crowdsecurity/iptables'
+   volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /opt/crowdsec/:/etc/crowdsec/
+      - /var/log/auth.log:/var/log/auth.log:ro
+      - /var/log/journal:/var/log/host:ro
+      - nginxmain_data:/var/log/crowdsec/nginxmain:ro
+      - nginxgames_data:/var/log/crowdsec/nginxgames:ro
+      - traefik_data:/var/log/traefik:ro
+      - crowdsec_db:/var/lib/crowdsec/data/
+   security_opt:
+      - no-new-privileges:true
+   hostname: crowdsec
+
+crowdsec-traefik-bouncer:
+   image: fbonalair/traefik-crowdsec-bouncer:latest
+   container_name: bouncer-traefik
+   restart: unless-stopped
+   environment:
+      - CROWDSEC_AGENT_HOST=crowdsec:8081
+      - CROWDSEC_BOUNCER_API_KEY=${CROWDSEC_BOUNCER_API_KEY}
+      - GIN_MODE=debug
+   depends_on:
+      - crowdsec

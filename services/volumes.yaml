@@ -1,0 +1,38 @@
+volumes:
+   authentik_database:
+      driver: local
+      driver_opts:
+         type: none
+         o: bind
+         device: /opt/authentik/database
+   linkstack_data:
+      driver: local
+      driver_opts:
+         type: none
+         o: bind
+         device: /opt/linkstack/
+   #   portainer_data:
+   crowdsec_db:
+      driver: local
+      driver_opts:
+         type: none
+         o: bind
+         device: /opt/crowdsec_data/
+   #   nginxmain_data:
+   #      driver: local
+   #      driver_opts:
+   #         type: none
+   #         o: bind
+   #         device: /var/log/nginxmain
+   #   nginxgames_data:
+   #      driver: local
+   #      driver_opts:
+   #         type: none
+   #         o: bind
+   #         device: /var/log/nginxgames
+   traefik_data:
+      driver: local
+      driver_opts:
+         type: none
+         o: bind
+         device: /var/log/traefik
