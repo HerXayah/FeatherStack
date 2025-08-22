@@ -12,16 +12,16 @@ services:
          - CF_TOKEN=${CLOUDFLARE_TOKEN}
          - RC_TYPE=CNAME
          - TARGET_DOMAIN=egirl.ing
-         - DOMAIN3=egirl.ing
-         - DOMAIN3_ZONE_ID=${DOMAIN3_ZONE_ID}
-         - DOMAIN3_ACME=true
-         - DOMAIN3_ACME_DNS_PROVIDER=cloudflare
-         - DOMAIN3_PROXIED=TRUE
          - DOMAIN1=egirl.ing
          - DOMAIN1_ZONE_ID=${DOMAIN1_ZONE_ID}
          - DOMAIN1_ACME=true
          - DOMAIN1_ACME_DNS_PROVIDER=cloudflare
          - DOMAIN1_PROXIED=TRUE
+         - DOMAIN2=suckmygirldi.cc
+         - DOMAIN2_ZONE_ID=${DOMAIN2_ZONE_ID}
+         - DOMAIN2_ACME=true
+         - DOMAIN2_ACME_DNS_PROVIDER=cloudflare
+         - DOMAIN2_PROXIED=TRUE
 
    crowdsec-cloudflare-bouncer:
       image: crowdsecurity/cloudflare-bouncer:latest
