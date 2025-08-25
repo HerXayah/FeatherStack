@@ -43,6 +43,6 @@ services:
          - 'traefik.http.services.miellaweb-node.loadbalancer.server.port=3000'
       volumes:
          #- /opt/html/miellaweb:/usr/app/public
-         - /opt/html/miellawebNew/league-css:/usr/app/public/
-         - /opt/html/miellawebNew/stuff/:/usr/app/public/
+         - /opt/html/miellawebNew/league-css:/usr/app/dist/
+         - /opt/html/miellawebNew/stuff/:/usr/app/dist/
          #- /opt/html/server.js:/usr/app/server.js
