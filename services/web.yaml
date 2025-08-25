@@ -23,9 +23,9 @@ services:
          - /opt/html/miellaweb:/usr/app/public
          - /opt/html/server.js:/usr/app/server.js
 
-   miellawebNEW:
-      image: miellawebNEW:latest
-      container_name: miellawebNEW
+   miellawebnew:
+      image: miellawebnew:latest
+      container_name: miellawebnew
       restart: unless-stopped
       labels:
          - 'traefik.enable=true'
