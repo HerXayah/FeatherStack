@@ -29,20 +29,18 @@ services:
       restart: unless-stopped
       labels:
          - 'traefik.enable=true'
-         - 'traefik.http.routers.miellaweb.rule=Host(`test.egirl.ing`)'
-         - 'traefik.http.routers.miellaweb.entrypoints=http'
-         - 'traefik.http.routers.miellaweb.middlewares=miellaweb-https-redirect'
+         - 'traefik.http.routers.miellawebnew.rule=Host(`test.egirl.ing`)'
+         - 'traefik.http.routers.miellawebnew.entrypoints=http'
+         - 'traefik.http.routers.miellawebnew.middlewares=miellawebnew-https-redirect'
          - 'traefik.http.middlewares.miellaweb-https-redirect.redirectscheme.scheme=https'
-         - 'traefik.http.routers.miellaweb-secure.rule=Host(`test.egirl.ing`)'
-         - 'traefik.http.routers.miellaweb-secure.entrypoints=https'
-         - 'traefik.http.routers.miellaweb-secure.tls=true'
-         - 'traefik.http.routers.miellaweb-secure.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.miellaweb-secure.tls.domains[0].sans=test.egirl.ing'
-         - 'traefik.http.routers.miellaweb-secure.tls.domains[0].main=egirl.ing'
-         - 'traefik.http.routers.miellaweb-secure.service=miellaweb'
-         - 'traefik.http.services.miellaweb-node.loadbalancer.server.port=3000'
+         - 'traefik.http.routers.miellawebnew-secure.rule=Host(`test.egirl.ing`)'
+         - 'traefik.http.routers.miellawebnew-secure.entrypoints=https'
+         - 'traefik.http.routers.miellawebnew-secure.tls=true'
+         - 'traefik.http.routers.miellawebnew-secure.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.miellawebnew-secure.tls.domains[0].sans=test.egirl.ing'
+         - 'traefik.http.routers.miellawebnew-secure.tls.domains[0].main=egirl.ing'
+         - 'traefik.http.routers.miellawebnew-secure.service=miellawebnew'
+         - 'traefik.http.services.miellawebnew-node.loadbalancer.server.port=3001'
       volumes:
-         #- /opt/html/miellaweb:/usr/app/public
          - /opt/html/miellawebNew/league-css:/usr/app/public/league-css
          - /opt/html/miellawebNew/stuff/:/usr/app/public/stuff
-         #- /opt/html/server.js:/usr/app/server.js
