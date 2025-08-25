@@ -17,10 +17,32 @@ services:
          - 'traefik.http.routers.miellaweb-secure.tls.certresolver=cloudflare'
          - 'traefik.http.routers.miellaweb-secure.tls.domains[0].sans=egirl.ing'
          - 'traefik.http.routers.miellaweb-secure.tls.domains[0].main=egirl.ing'
-         - 'traefik.http.routers.miellaweb-secure.tls.domains[1].sans=*.suckmygirldi.cc'
-         - 'traefik.http.routers.miellaweb-secure.tls.domains[1].main=suckmygirldi.cc'
          - 'traefik.http.routers.miellaweb-secure.service=miellaweb-node'
          - 'traefik.http.services.miellaweb-node.loadbalancer.server.port=3000'
       volumes:
          - /opt/html/miellaweb:/usr/app/public
          - /opt/html/server.js:/usr/app/server.js
+
+   miellawebNEW:
+      image: miellawebNEW:latest
+      container_name: miellawebNEW
+      restart: unless-stopped
+      labels:
+         - 'traefik.enable=true'
+         - 'traefik.http.routers.miellaweb.rule=Host(`test.egirl.ing`)'
+         - 'traefik.http.routers.miellaweb.entrypoints=http'
+         - 'traefik.http.routers.miellaweb.middlewares=miellaweb-https-redirect'
+         - 'traefik.http.middlewares.miellaweb-https-redirect.redirectscheme.scheme=https'
+         - 'traefik.http.routers.miellaweb-secure.rule=Host(`test.egirl.ing`)'
+         - 'traefik.http.routers.miellaweb-secure.entrypoints=https'
+         - 'traefik.http.routers.miellaweb-secure.tls=true'
+         - 'traefik.http.routers.miellaweb-secure.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.miellaweb-secure.tls.domains[0].sans=test.egirl.ing'
+         - 'traefik.http.routers.miellaweb-secure.tls.domains[0].main=egirl.ing'
+         - 'traefik.http.routers.miellaweb-secure.service=miellaweb'
+         - 'traefik.http.services.miellaweb-node.loadbalancer.server.port=3000'
+      volumes:
+         #- /opt/html/miellaweb:/usr/app/public
+         - /opt/html/miellawebNew/league-css:/usr/app/public/
+         - /opt/html/miellawebNew/stuff/:/usr/app/public/
+         #- /opt/html/server.js:/usr/app/server.js
