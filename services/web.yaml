@@ -38,6 +38,7 @@ services:
          - 'traefik.http.routers.miellawebnew-secure.tls.certresolver=cloudflare'
          - 'traefik.http.routers.miellawebnew-secure.tls.domains[0].sans=test.egirl.ing'
          - 'traefik.http.routers.miellawebnew-secure.tls.domains[0].main=egirl.ing'
+         - 'traefik.http.routers.miellawebnew-secure.service=miellaweb-node'
          - 'traefik.http.services.miellawebnew-node.loadbalancer.server.port=3001'
       volumes:
          - /opt/html/miellawebNew/league-css:/usr/app/public/league-css
