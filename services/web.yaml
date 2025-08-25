@@ -31,7 +31,6 @@ services:
          - 'traefik.enable=true'
          - 'traefik.http.routers.miellawebnew.rule=Host(`test.egirl.ing`)'
          - 'traefik.http.routers.miellawebnew.entrypoints=http'
-         - 'traefik.http.routers.miellawebnew.middlewares=miellawebnew-https-redirect'
          - 'traefik.http.middlewares.miellaweb-https-redirect.redirectscheme.scheme=https'
          - 'traefik.http.routers.miellawebnew-secure.rule=Host(`test.egirl.ing`)'
          - 'traefik.http.routers.miellawebnew-secure.entrypoints=https'
