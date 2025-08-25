@@ -39,7 +39,6 @@ services:
          - 'traefik.http.routers.koito.rule=Host(`koito.egirl.ing`)'
          - 'traefik.http.routers.koito.entrypoints=http'
          - 'traefik.http.routers.koito.tls.certresolver=cloudflare'
-         - 'traefik.http.routers.koito.middlewares=koito-https-redirect'
          - 'traefik.http.routers.koito-secure.entrypoints=https'
          - 'traefik.http.routers.koito-secure.rule=Host(`koito.egirl.ing`)'
          - 'traefik.http.routers.koito-secure.tls=true'
