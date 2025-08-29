@@ -43,4 +43,4 @@ services:
          - 'traefik.http.services.miellawebnew.loadbalancer.server.port=3001'
       volumes:
          - /opt/html/miellawebNew/league-css:/usr/app/public/league-css
-         - /opt/html/miellawebNew/stuff/:/usr/app/public/stuff
+         - /opt/html/miellawebNew/stuff:/usr/app/public/stuff
