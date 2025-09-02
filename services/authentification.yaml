@@ -1,9 +1,9 @@
 services:
    server:
-      image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.8.1}
+      image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.8}
       restart: unless-stopped
-      expose:
-         - 9000
+      #expose:
+      #   - 9000
       container_name: authentik-server
       command: server
       labels:
@@ -37,7 +37,7 @@ services:
          - authentikredis
 
    worker:
-      image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.8.1}
+      image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.8}
       restart: unless-stopped
       container_name: authentik-worker
       command: worker
