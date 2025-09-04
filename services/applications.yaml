@@ -25,7 +25,6 @@ services:
    koito:
       image: gabehf/koito:latest
       container_name: koito
-      user: 1000:1000
       depends_on:
          - db-koito
       environment:
