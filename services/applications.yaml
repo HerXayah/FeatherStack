@@ -56,6 +56,7 @@ services:
          - MALOJA_DATA_DIRECTORY=/mljdata
          - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
          - MALOJA_SKIP_SETUP=true
+         - MALOJA_FORCE_PASSWORD=${MALOJA_FORCE_PASSWORD}
          - PYTHONUNBUFFERED=1
          - PUID=1000
          - PGID=1000
