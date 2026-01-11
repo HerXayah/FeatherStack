@@ -50,7 +50,8 @@ services:
    ao3-tracker:
       image: ao3-tracker:latest
       container_name: ao3-tracker
-      environment: API_KEY=${AO3_API_KEY}
+      environment:
+         - API_KEY=${AO3_API_KEY}
       restart: unless-stopped
       labels:
          - 'traefik.enable=true'
