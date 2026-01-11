@@ -46,3 +46,23 @@ services:
       volumes:
          - /opt/html/miellawebNew/league-css:/usr/app/public/league-css
          - /opt/html/miellawebNew/stuff:/usr/app/public/stuff
+         -
+   ao3tracker:
+      image: ao3locator:latest
+      container_name: ao3-tracker
+      environment: API_KEY=${AO3_API_KEY}
+      restart: unless-stopped
+      labels:
+         - 'traefik.enable=true'
+         - 'traefik.http.routers.ao3-tracker.rule=Host(`ao3.egirl.ing`)'
+         - 'traefik.http.routers.ao3-tracker.entrypoints=http'
+         - 'traefik.http.routers.ao3-tracker.middlewares=ao3-tracker-https-redirect'
+         - 'traefik.http.middlewares.ao3-tracker-https-redirect.redirectscheme.scheme=https'
+         - 'traefik.http.routers.ao3-tracker-secure.rule=Host(`ao3.egirl.ing`)'
+         - 'traefik.http.routers.ao3-tracker-secure.entrypoints=https'
+         - 'traefik.http.routers.ao3-tracker-secure.tls=true'
+         - 'traefik.http.routers.ao3-tracker-secure.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.ao3-tracker-secure.tls.domains[0].sans=ao3.egirl.ing'
+         - 'traefik.http.routers.ao3-tracker-secure.tls.domains[0].main=ao3.egirl.ing'
+         - 'traefik.http.routers.ao3-tracker-secure.service=ao3-tracker'
+         - 'traefik.http.services.ao3-tracker.loadbalancer.server.port=8081'
