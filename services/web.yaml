@@ -67,6 +67,6 @@ services:
          - 'traefik.http.routers.ao3-tracker-secure.tls.domains[0].sans=ao3.egirl.ing'
          - 'traefik.http.routers.ao3-tracker-secure.tls.domains[0].main=ao3.egirl.ing'
          - 'traefik.http.routers.ao3-tracker-secure.service=ao3-tracker'
-         - 'traefik.http.services.ao3-tracker.loadbalancer.server.port=8092'
+         - 'traefik.http.services.ao3-tracker.loadbalancer.server.port=8080'
       volumes:
          - /opt/ao3-tracker/:/data/
