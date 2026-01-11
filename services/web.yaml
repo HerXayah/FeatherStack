@@ -46,7 +46,7 @@ services:
       volumes:
          - /opt/html/miellawebNew/league-css:/usr/app/public/league-css
          - /opt/html/miellawebNew/stuff:/usr/app/public/stuff
-         -
+
    ao3-tracker:
       image: ao3-tracker:latest
       container_name: ao3-tracker
