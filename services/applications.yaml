@@ -25,8 +25,8 @@ services:
    koito:
       image: gabehf/koito:latest
       container_name: koito
-      depends_on:
-         - db-koito
+      # depends_on:
+      #    - db-koito
       environment:
          #    - KOITO_DATABASE_URL=postgres://postgres:${KOITO_POSTGRES}@db-koito:5432/koitodb
          - KOITO_ALLOWED_HOSTS=*
