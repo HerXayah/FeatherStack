@@ -56,7 +56,7 @@ services:
          - AO3_USERNAME=${AO3_USERNAME}
          - AO3_PASSWORD=${AO3_PASSWORD}
          - AO3_COOKIE=${AO3_COOKIE}
-         - PORT=8092
+         - PORT=8080
       restart: unless-stopped
       labels:
          - 'traefik.enable=true'
