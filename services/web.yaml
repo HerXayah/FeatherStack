@@ -53,6 +53,9 @@ services:
       container_name: ao3-tracker
       environment:
          - API_KEY=${AO3_API_KEY}
+         - AO3_USERNAME=${AO3_USERNAME}
+         - AO3_PASSWORD=${AO3_PASSWORD}
+         - AO3_COOKIE=${AO3_COOKIE}
          - PORT=8092
       restart: unless-stopped
       labels:
