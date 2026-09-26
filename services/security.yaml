@@ -44,6 +44,8 @@ services:
       security_opt:
          - no-new-privileges:true
       hostname: crowdsec
+      extra_hosts:
+         - 'host.docker.internal:host-gateway'
 
    crowdsec-traefik-bouncer:
       image: fbonalair/traefik-crowdsec-bouncer:latest
