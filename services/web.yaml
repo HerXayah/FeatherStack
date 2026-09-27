@@ -75,7 +75,7 @@ services:
       volumes:
          - /opt/ao3-tracker/:/data/
    xmpp:
-      image: prosodyim/prosody:latest
+      image: prosodyim/prosody
       container_name: xmpp
       environment:
          - PROSODY_UPLOAD_LIMIT_MB=50M
