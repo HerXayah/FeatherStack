@@ -43,6 +43,16 @@ services:
       volumes:
          - /opt/postgresZipline/:/var/lib/postgresql/data
 
+   postgres-xmpp:
+      image: postgres:17-alpine
+      restart: unless-stopped
+      environment:
+         - POSTGRES_USER=${POSTGRESXMP_USER}
+         - POSTGRES_PASSWORD=${POSTGRESXMP_PASSWORD}
+         - POSTGRES_DATABASE=prosody
+      volumes:
+         - /opt/postgresprosody/:/var/lib/postgresql/data
+
 #   db-koito:
 #      image: postgres:16
 #      container_name: db-koito
