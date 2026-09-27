@@ -74,3 +74,29 @@ services:
          - 'traefik.http.services.ao3-tracker.loadbalancer.server.port=8080'
       volumes:
          - /opt/ao3-tracker/:/data/
+         -
+   xmpp:
+      image: prosodyim/prosody:latest
+      container_name: xmpp
+      environment:
+         - PROSODY_UPLOAD_LIMIT_MB=50M
+         - PROSODY_UPLOAD_STORAGE_GB=60
+         - PROSODY_SQL_DRIVER=sqlite
+         - PROSODY_RETENTION_DAYS=30
+      labels:
+         - 'traefik.enable=true'
+         - 'traefik.http.routers.xmpp.rule=Host(`chat.egirl.ing`)'
+         - 'traefik.http.routers.xmpp.entrypoints=http'
+         - 'traefik.http.routers.xmpp.middlewares=xmpp-https-redirect'
+         - 'traefik.http.middlewares.xmpp-https-redirect.redirectscheme.scheme=https'
+         - 'traefik.http.routers.xmpp-secure.rule=Host(`chat.egirl.ing`)'
+         - 'traefik.http.routers.xmpp-secure.entrypoints=https'
+         - 'traefik.http.routers.xmpp-secure.tls=true'
+         - 'traefik.http.routers.xmpp-secure.tls.certresolver=cloudflare'
+         - 'traefik.http.routers.xmpp-secure.tls.domains[0].sans=chat.egirl.ing'
+         - 'traefik.http.routers.xmpp-secure.tls.domains[0].main=chat.egirl.ing'
+         - 'traefik.http.routers.xmpp-secure.service=xmpp'
+         - 'traefik.http.services.xmpp.loadbalancer.server.port=5222'
+      volumes:
+         - /opt/prosidy/config/:/etc/prosody
+         - /opt/prosidy/data/:/var/lib/prosody
