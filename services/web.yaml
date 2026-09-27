@@ -80,7 +80,6 @@ services:
       environment:
          - PROSODY_UPLOAD_LIMIT_MB=50M
          - PROSODY_UPLOAD_STORAGE_GB=60
-         - PROSODY_SQL_DRIVER=sqlite
          - PROSODY_RETENTION_DAYS=30
       labels:
          - 'traefik.enable=true'
