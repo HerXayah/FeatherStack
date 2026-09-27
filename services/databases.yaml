@@ -45,6 +45,7 @@ services:
 
    postgres-xmpp:
       image: postgres:17-alpine
+      container_name: postgres-xmpp
       restart: unless-stopped
       environment:
          - POSTGRES_USER=${POSTGRESXMP_USER}
